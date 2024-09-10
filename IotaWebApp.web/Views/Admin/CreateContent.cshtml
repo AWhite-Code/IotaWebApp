@@ -1,0 +1,17 @@
+﻿@model IotaWebApp.Models.WebsiteContent
+
+<h2>Create New Content</h2>
+
+<form asp-action="CreateContent" method="post">
+    <div class="form-group">
+        <label asp-for="ContentKey" class="control-label"></label>
+        <input asp-for="ContentKey" class="form-control" />
+        <span asp-validation-for="ContentKey" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ContentValue" class="control-label"></label>
+        <textarea asp-for="ContentValue" class="form-control"></textarea>
+        <span asp-validation-for="ContentValue" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

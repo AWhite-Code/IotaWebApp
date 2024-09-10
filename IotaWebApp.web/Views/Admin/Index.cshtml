@@ -1,5 +1,28 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<IotaWebApp.Models.WebsiteContent>
+
+<h2>Manage Website Content</h2>
+
+<a asp-action="CreateContent" class="btn btn-success">Add New Content</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Content Key</th>
+            <th>Content Value</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ContentKey</td>
+                <td>@item.ContentValue</td>
+                <td>
+                    <a asp-action="EditContent" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="DeleteContent" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
