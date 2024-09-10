@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "foundation@6.8.1",
+      "destination": "wwwroot/lib/foundation/"
+    }
+  ,
+{
+  "provider": "cdnjs",
+  "library": "slick-carousel@1.8.1",
+  "destination": "wwwroot/lib/slick-carousel/"
+}
+]
+}
