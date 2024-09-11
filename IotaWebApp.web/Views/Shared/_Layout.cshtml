@@ -25,6 +25,9 @@
         </div>
 
         <div class="top-bar-right">
+            <div class="project-box">
+                HAVE A PROJECT?
+            </div>
             <!-- Menu Items Aligned to the Right -->
             <ul class="menu align-right">
                 <!-- Menu Buttons -->
@@ -43,11 +46,9 @@
 
     <!-- Main Content -->
     <div class="grid-container fluid">
-        <!-- Render the main content of each page -->
         @RenderBody()
     </div>
 
-    <!-- Optional Footer -->
     <!-- Scripts Section -->
     @RenderSection("Scripts", required: false)
 
@@ -62,7 +63,7 @@
 
     <!-- Initialize Foundation -->
     <script>
-        $(document).foundation(); // Initialize Foundation
+        $(document).foundation();
     </script>
 
     <!-- Site JS -->

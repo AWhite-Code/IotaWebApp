@@ -1,95 +1,62 @@
-/* Global Styles */
-html {
-    font-size: 14px;
-    position: relative;
-    min-height: 100%;
-}
-
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
-
-body {
-    margin-bottom: 60px;
-}
-
-.btn:focus,
-.btn:active:focus,
-.btn-link.nav-link:focus,
-.form-control:focus,
-.form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
 /* Top Bar Styling */
 .top-bar {
-    background-color: white; /* Set background color of the top bar */
-    padding: 0; /* Remove padding to make it tight */
-    border-bottom: 1px solid #e1e1e1; /* Optional bottom border for separation */
-    display: flex; /* Use Flexbox for layout */
+    background-color: white; 
+    padding: 0; 
+    border-bottom: 1px solid #ffffff; 
+    display: flex; 
     justify-content: space-between; /* Space between the logo and menu items */
-    align-items: center; /* Center items vertically */
+    align-items: center;
+    min-height: 100px; 
+    position: relative; 
+    padding-top: 30px; 
+    overflow: visible; 
 }
 
+/* Yellow Box Styling */
+.project-box {
+    background-color: yellow;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold; 
+    position: absolute; 
+    top: -10px; /* Position it above the top bar to hide top corners */
+    right: 10px; 
+    transform: translateX(-10px); 
+    z-index: 1; /* Ensure it appears above other elements */
+    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+}
+
+/* Logo Styling */
 .iota-logo {
     height: 50px; /* Set logo height */
     padding: 10px; /* Add padding around logo */
     margin-left: 20px; /* Optional margin for spacing */
 }
 
+/* Menu Styling */
 .menu {
-    display: flex; /* Display menu items in a row */
-    align-items: center; /* Center items vertically */
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    list-style: none; /* Remove bullet points */
+    display: flex;
+    align-items: center;
+    margin: 0; 
+    padding: 0; 
+    list-style: none; 
+    margin-top: 20px; 
 }
 
     .menu li {
-        margin-right: 15px; /* Space between menu items */
+        margin-right: 15px; 
     }
 
         .menu li a {
-            color: black; /* Default color for menu items */
-            font-weight: bold; /* Make text bold */
-            text-decoration: none; /* Remove underline from links */
+            color: black;
+            font-weight: bold;
+            text-decoration: none; 
         }
 
             .menu li a:hover {
-                color: #0056b3; /* Optional hover color */
+                color: #0056b3; 
             }
 
 .home-button {
-    color: yellow; /* Set the "Home" button to yellow */
+    color: yellow;
 }
-
-/* Carousel Container */
-.carousel-container {
-    width: 100%; /* Full width of the page */
-    max-width: 1200px; /* Set a maximum width for the container */
-    margin: 20px auto; /* Center the carousel and add some margin */
-    padding: 0; /* Remove any default padding */
-    overflow: hidden; /* Prevent overflow */
-    border-radius: 20px 20px 0 0; /* Rounded corners on top, square on bottom */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for visual depth */
-    max-height: 500px; /* Set a maximum height */
-    position: relative; /* Relative positioning to control contents */
-}
-
-/* Slick Carousel Styling */
-.carousel {
-    width: 100%; /* Ensure carousel content spans full width of container */
-    margin: 0; /* Reset margin */
-    overflow: hidden; /* Prevent infinite scroll */
-}
-
-    .carousel img {
-        width: 100%; /* Ensure images take up the full width of the carousel item */
-        height: auto; /* Maintain aspect ratio */
-        display: block; /* Ensure images do not have bottom margin */
-        border-radius: 20px 20px 0 0; /* Apply same rounded corners to images */
-        max-height: 500px; /* Ensure images don’t exceed the container height */
-        object-fit: cover; /* Cover the container without stretching */
-    }

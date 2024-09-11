@@ -7,15 +7,12 @@
 <div class="grid-container fluid">
     <!-- Grid X for Carousel -->
     <div class="grid-x grid-margin-x align-center">
-        <!-- Carousel Container in a Grid Cell -->
         <div class="cell small-12 large-10">
             <!-- Large screens: 10 columns wide, small screens: full width -->
             <div class="carousel-container">
-                <!-- Slick Slider Content -->
                 <div class="carousel">
-                    <!-- Corrected Image Path for First Slide -->
                     <div>
-                        <img src="~/Assets/image4.png" alt="Image 4" /> <!-- First image from Assets folder -->
+                        <img src="~/Assets/image4.png" alt="Image 4" />
                     </div>
                     <div>
                         <img src="https://via.placeholder.com/800x400?text=Slide+2" alt="Slide 2" />
@@ -41,7 +38,7 @@
 <!-- Initialize Foundation and Slick Slider -->
 <script src="~/lib/foundation/js/foundation.min.js"></script>
 <script>
-    $(document).foundation(); // Initialize Foundation
+    $(document).foundation(); 
 
     $(document).ready(function () {
         if (typeof $ === 'undefined') {
@@ -57,7 +54,7 @@
                     speed: 500,
                     slidesToShow: 1,
                     slidesToScroll: 1,
-                    arrows: true, // Enable arrow buttons
+                    arrows: true,
                     prevArrow: '<button type="button" class="slick-prev">Previous</button>',
                     nextArrow: '<button type="button" class="slick-next">Next</button>'
                 }).on('init', function (event, slick) {
