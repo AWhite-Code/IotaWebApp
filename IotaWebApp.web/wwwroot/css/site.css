@@ -1,22 +1,56 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
+
+/* Carousel Container */
+.carousel-container {
+    width: 100%; /* Full width of the page */
+    max-width: 1200px; /* Set a maximum width for the container */
+    margin: 20px auto; /* Center the carousel and add some margin */
+    padding: 0; /* Remove any default padding */
+    overflow: hidden; /* Prevent overflow */
+    border-radius: 20px 20px 0 0; /* Rounded corners on top, square on bottom */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for visual depth */
+    max-height: 500px; /* Set a maximum height */
+    position: relative; /* Relative positioning to control contents */
+}
+
+/* Slick Carousel Styling */
+.carousel {
+    width: 100%; /* Ensure carousel content spans full width of container */
+    margin: 0; /* Reset margin */
+    overflow: hidden; /* Prevent infinite scroll */
+}
+
+.carousel img {
+    width: 100%; /* Ensure images take up the full width of the carousel item */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure images do not have bottom margin */
+    border-radius: 20px 20px 0 0; /* Apply same rounded corners to images */
+    max-height: 500px; /* Ensure images don’t exceed the container height */
+    object-fit: cover; /* Cover the container without stretching */
+}
+
