@@ -4,16 +4,7 @@
 }
 
 <!-- Grid Container for Main Content -->
-<div class="grid-container full">
-    <!-- Full-width grid container -->
-    <!-- Grid X (Row) -->
-    <div class="grid-x grid-margin-x align-center">
-        <!-- Title Section in a Grid Cell -->
-        <div class="cell small-12 text-center">
-            <h1>Welcome to Iota Web App</h1>
-        </div>
-    </div>
-
+<div class="grid-container fluid">
     <!-- Grid X for Carousel -->
     <div class="grid-x grid-margin-x align-center">
         <!-- Carousel Container in a Grid Cell -->
@@ -47,8 +38,11 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/slick-carousel/slick.min.js"></script>
 
-<!-- Initialize Slick Slider -->
+<!-- Initialize Foundation and Slick Slider -->
+<script src="~/lib/foundation/js/foundation.min.js"></script>
 <script>
+    $(document).foundation(); // Initialize Foundation
+
     $(document).ready(function () {
         if (typeof $ === 'undefined') {
             console.error('jQuery is not loaded correctly.');

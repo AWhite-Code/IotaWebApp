@@ -1,67 +1,71 @@
-﻿<!DOCTYPE html>
+﻿@* Views/Shared/_Layout.cshtml *@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - IotaWebApp.web</title>
+    <title>@ViewData["Title"] - Iota Web App</title>
 
     <!-- Include Foundation CSS -->
     <link rel="stylesheet" href="~/lib/foundation/css/foundation.min.css" />
-    <link rel="stylesheet" href="~/lib/foundation/css/foundation-float.min.css" />
 
-    <link rel="stylesheet" href="~/lib/slick-carousel/slick.css" />
-    <link rel="stylesheet" href="~/lib/slick-carousel/slick-theme.css" />
-    <script src="~/lib/slick-carousel/slick.min.js"></script>
+    <!-- Include Slick Carousel CSS -->
+    <link href="~/lib/slick-carousel/slick.css" rel="stylesheet" />
+    <link href="~/lib/slick-carousel/slick-theme.css" rel="stylesheet" />
 
     <!-- Site CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/IotaWebApp.web.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="top-bar">
-            <div class="top-bar-left">
-                <ul class="dropdown menu" data-dropdown-menu>
-                    <li class="menu-text"><a asp-area="" asp-page="/Index">IotaWebApp.web</a></li>
-                    <li><a asp-area="" asp-page="/Index">Home</a></li>
-                    <li><a asp-area="" asp-page="/Privacy">Privacy</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <!-- Logo Image -->
+            <img src="~/Assets/logo.png" alt="Iota Logo" class="iota-logo" style="height: 50px; padding: 10px;" />
+        </div>
 
-    <div class="grid-container">
-        <main role="main" class="grid-x grid-padding-x pb-3">
-            @RenderBody()
-        </main>
+        <div class="top-bar-right">
+            <!-- Menu Items Aligned to the Right -->
+            <ul class="menu align-right">
+                <!-- Menu Buttons -->
+                <li><a href="#" class="home-button">Home</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Sustainability</a></li>
+                <li><a href="#">Our Work</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">About IOTA</a></li>
+                <li><a href="#">Get in Touch</a></li>
+                <!-- Search Icon -->
+                <li><a href="#"><img src="~/Assets/search.png" alt="Search" style="height: 30px; width: 30px;" /></a></li>
+            </ul>
+        </div>
     </div>
 
-    <footer class="grid-container">
-        <div class="grid-x grid-padding-x border-top footer text-muted">
-            <div class="cell">
-                &copy; 2024 - IotaWebApp.web - <a asp-area="" asp-page="/Privacy">Privacy</a>
-            </div>
-        </div>
-    </footer>
+    <!-- Main Content -->
+    <div class="grid-container fluid">
+        <!-- Render the main content of each page -->
+        @RenderBody()
+    </div>
+
+    <!-- Optional Footer -->
+    <!-- Scripts Section -->
+    @RenderSection("Scripts", required: false)
 
     <!-- Include jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
+    <!-- Include Slick Carousel JavaScript -->
+    <script src="~/lib/slick-carousel/slick.min.js"></script>
+
     <!-- Include Foundation JS -->
     <script src="~/lib/foundation/js/foundation.min.js"></script>
 
-    <!-- Include Slick JS -->
-    <script src="~/lib/slick-carousel/slick.min.js"></script>
-
-    <!-- Initialize Foundation and Slick JS -->
+    <!-- Initialize Foundation -->
     <script>
         $(document).foundation(); // Initialize Foundation
-        $('.your-slider-class').slick(); // Initialize Slick JS; replace '.your-slider-class' with your actual class
     </script>
 
     <!-- Site JS -->
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

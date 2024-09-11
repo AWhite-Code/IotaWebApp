@@ -1,11 +1,18 @@
+/* Global Styles */
 html {
     font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
     html {
         font-size: 16px;
     }
+}
+
+body {
+    margin-bottom: 60px;
 }
 
 .btn:focus,
@@ -16,13 +23,46 @@ html {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-    position: relative;
-    min-height: 100%;
+/* Top Bar Styling */
+.top-bar {
+    background-color: white; /* Set background color of the top bar */
+    padding: 0; /* Remove padding to make it tight */
+    border-bottom: 1px solid #e1e1e1; /* Optional bottom border for separation */
+    display: flex; /* Use Flexbox for layout */
+    justify-content: space-between; /* Space between the logo and menu items */
+    align-items: center; /* Center items vertically */
 }
 
-body {
-    margin-bottom: 60px;
+.iota-logo {
+    height: 50px; /* Set logo height */
+    padding: 10px; /* Add padding around logo */
+    margin-left: 20px; /* Optional margin for spacing */
+}
+
+.menu {
+    display: flex; /* Display menu items in a row */
+    align-items: center; /* Center items vertically */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    list-style: none; /* Remove bullet points */
+}
+
+    .menu li {
+        margin-right: 15px; /* Space between menu items */
+    }
+
+        .menu li a {
+            color: black; /* Default color for menu items */
+            font-weight: bold; /* Make text bold */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+            .menu li a:hover {
+                color: #0056b3; /* Optional hover color */
+            }
+
+.home-button {
+    color: yellow; /* Set the "Home" button to yellow */
 }
 
 /* Carousel Container */
@@ -45,12 +85,11 @@ body {
     overflow: hidden; /* Prevent infinite scroll */
 }
 
-.carousel img {
-    width: 100%; /* Ensure images take up the full width of the carousel item */
-    height: auto; /* Maintain aspect ratio */
-    display: block; /* Ensure images do not have bottom margin */
-    border-radius: 20px 20px 0 0; /* Apply same rounded corners to images */
-    max-height: 500px; /* Ensure images don’t exceed the container height */
-    object-fit: cover; /* Cover the container without stretching */
-}
-
+    .carousel img {
+        width: 100%; /* Ensure images take up the full width of the carousel item */
+        height: auto; /* Maintain aspect ratio */
+        display: block; /* Ensure images do not have bottom margin */
+        border-radius: 20px 20px 0 0; /* Apply same rounded corners to images */
+        max-height: 500px; /* Ensure images don’t exceed the container height */
+        object-fit: cover; /* Cover the container without stretching */
+    }
