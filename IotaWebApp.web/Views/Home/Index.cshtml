@@ -5,26 +5,49 @@
 
 <div class="top-panel">
     <h1>Welcome to Iota Web App</h1>
-    <div class="carousel">
-        <!-- Placeholder for Slick Slider -->
-        <div>Slide 1</div>
-        <div>Slide 2</div>
-        <div>Slide 3</div>
+    <div class="carousel" style="border: 1px solid #ddd; padding: 10px; width: 800px; margin: 0 auto;">
+        <!-- Slick Slider Content -->
+        <div><img src="https://via.placeholder.com/800x400?text=Slide+1" alt="Slide 1" /></div>
+        <div><img src="https://via.placeholder.com/800x400?text=Slide+2" alt="Slide 2" /></div>
+        <div><img src="https://via.placeholder.com/800x400?text=Slide+3" alt="Slide 3" /></div>
     </div>
 </div>
 
-<!-- Add a reference to the CSS and JS files -->
-<link href="~/css/styles.css" rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="~/lib/slick/slick.min.js"></script>
+<!-- Reference Local CSS Files for Slick Carousel -->
+<link href="~/lib/slick-carousel/slick/slick.css" rel="stylesheet" />
+<link href="~/lib/slick-carousel/slick/slick-theme.css" rel="stylesheet" />
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="~/lib/slick-carousel/slick/slick.min.js"></script>
+
+<!-- Initialize Slick Slider -->
 <script>
-    $(document).ready(function () {
-        $('.carousel').slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1
+    // Ensure jQuery and Slick are loaded correctly
+    if (typeof $ === 'undefined') {
+        console.error('jQuery is not loaded correctly.');
+    } else {
+        console.log('jQuery is loaded.');
+
+        $(document).ready(function () {
+            console.log('Document is ready.');
+            if ($('.carousel').length > 0) {
+                console.log('Carousel element found. Initializing Slick slider...');
+                $('.carousel').slick({
+                    dots: true,
+                    infinite: true,
+                    speed: 500,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: true, // Enable arrow buttons
+                    prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+                    nextArrow: '<button type="button" class="slick-next">Next</button>'
+                }).on('init', function (event, slick) {
+                    console.log('Slick slider initialized.');
+                }).on('setPosition', function (event, slick) {
+                    console.log('Slick slider set position.');
+                });
+            } else {
+                console.error('Carousel element not found.');
+            }
         });
-    });
+    }
 </script>

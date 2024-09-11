@@ -5,12 +5,14 @@
     {
       "library": "foundation@6.8.1",
       "destination": "wwwroot/lib/foundation/"
+    },
+    {
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "slick-carousel@1.8.1",
+      "destination": "wwwroot/lib/slick-carousel/"
     }
-  ,
-{
-  "provider": "cdnjs",
-  "library": "slick-carousel@1.8.1",
-  "destination": "wwwroot/lib/slick-carousel/"
-}
-]
+  ]
 }
