@@ -10,7 +10,8 @@
 </div>
 
 <form asp-action="DeleteConfirmed" method="post">
-    <input type="hidden" asp-for="Id" />
+    @Html.AntiForgeryToken()  <!-- Ensure anti-forgery token is included -->
+    <input type="hidden" asp-for="Id" />  <!-- Correctly bind to Id of the model -->
     <button type="submit" class="btn btn-danger">Delete</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

@@ -10,23 +10,20 @@
 <!-- Full-Width Hero Section and Carousel -->
 <div class="full-screen-width">
     <div class="carousel">
-        <!-- Dynamic Hero Image -->
         <div>
             <img src="@Url.Content(heroImage)" alt="Hero Image" class="hero-image" />
             <!-- Caption for Centered Text -->
             <div class="carousel-caption">
                 <h1>Creating Exceptional Workspaces</h1>
             </div>
-            <!-- New Div for Button -->
             <div class="carousel-button">
                 <a href="#" class="button">Explore Our Work</a>
             </div>
         </div>
-        <!-- Additional carousel slides -->
         <div>
             <img src="@Url.Content(Model.FirstOrDefault(c => c.ContentKey == "CarouselSlide1")?.ContentValue ?? "/assets/placeholder.png")" alt="Slide 1" class="hero-image" />
         </div>
-        <!-- More slides... -->
+        <!-- More slides Here -->
     </div>
 </div>
 

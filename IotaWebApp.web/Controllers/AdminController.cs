@@ -2,21 +2,20 @@
 using Microsoft.EntityFrameworkCore;
 using IotaWebApp.Data;
 using IotaWebApp.Models;
-using System.IO;  // For file handling
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;  // For IFormFile
 
 namespace IotaWebApp.Controllers
 {
-    [Route("Admin")]  // Route prefix for all actions
+    [Route("Admin")]
     public class AdminController : Controller
     {
         private readonly WebsiteCMSDbContext _context;
+        private readonly ILogger<AdminController> _logger; 
         private readonly string _uploadsFolder = "uploads";
 
-        public AdminController(WebsiteCMSDbContext context)
+        public AdminController(WebsiteCMSDbContext context, ILogger<AdminController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // Read: List all contents
@@ -26,13 +25,13 @@ namespace IotaWebApp.Controllers
         {
             try
             {
-                Console.WriteLine("AdminController Index action called.");
+                _logger.LogInformation("AdminController Index action called.");
                 var contents = await _context.WebsiteContents.ToListAsync();
                 return View(contents);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error loading content: {ex.Message}");
+                _logger.LogError($"Error loading content: {ex.Message}");
                 return View("Error", new ErrorViewModel { ErrorMessage = "An error occurred while loading content." });
             }
         }
@@ -57,17 +56,17 @@ namespace IotaWebApp.Controllers
                 {
                     if (file != null && file.Length > 0)
                     {
-                        // Save the file to the uploads folder and store its relative path in ContentValue
                         content.ContentValue = await SaveFile(file);
                     }
 
                     _context.WebsiteContents.Add(content);
                     await _context.SaveChangesAsync();
+                    _logger.LogInformation("Content created successfully.");
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error creating content: {ex.Message}");
+                    _logger.LogError($"Error creating content: {ex.Message}");
                     ModelState.AddModelError("", "An error occurred while creating the content.");
                 }
             }
@@ -81,14 +80,14 @@ namespace IotaWebApp.Controllers
         {
             if (id == null)
             {
-                Console.WriteLine("Edit action: No ID provided.");
+                _logger.LogWarning("Edit action: No ID provided.");
                 return NotFound();
             }
 
             var content = await _context.WebsiteContents.FindAsync(id);
             if (content == null)
             {
-                Console.WriteLine($"Edit action: Content with ID {id} not found.");
+                _logger.LogWarning($"Edit action: Content with ID {id} not found.");
                 return NotFound();
             }
             return View(content);
@@ -102,7 +101,7 @@ namespace IotaWebApp.Controllers
         {
             if (id != content.Id)
             {
-                Console.WriteLine($"Edit action: Mismatched ID {id} for content.");
+                _logger.LogWarning($"Edit action: Mismatched ID {id} for content.");
                 return NotFound();
             }
 
@@ -118,11 +117,12 @@ namespace IotaWebApp.Controllers
 
                     _context.Update(content);
                     await _context.SaveChangesAsync();
+                    _logger.LogInformation("Content edited successfully.");
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException ex)
                 {
-                    Console.WriteLine($"Concurrency error while editing content: {ex.Message}");
+                    _logger.LogError($"Concurrency error while editing content: {ex.Message}");
                     if (!WebsiteContentExists(content.Id))
                     {
                         return NotFound();
@@ -134,7 +134,7 @@ namespace IotaWebApp.Controllers
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error editing content: {ex.Message}");
+                    _logger.LogError($"Error editing content: {ex.Message}");
                     ModelState.AddModelError("", "An error occurred while editing the content.");
                 }
             }
@@ -142,56 +142,70 @@ namespace IotaWebApp.Controllers
         }
 
         // Delete: Handle the deletion of content with dependency check
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [Route("Delete/{id?}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var content = await _context.WebsiteContents.FindAsync(id);
-            if (content == null)
-            {
-                Console.WriteLine($"DeleteConfirmed action: Content with ID {id} not found.");
-                return NotFound();
-            }
-
             try
             {
+                var content = await _context.WebsiteContents.FindAsync(id);
+                if (content == null)
+                {
+                    _logger.LogWarning($"DeleteConfirmed action: Content with ID {id} not found.");
+                    return NotFound();  // Return a NotFound view if content does not exist
+                }
+
+                _logger.LogInformation($"Attempting to delete content with ID {id} and ContentKey {content.ContentKey}.");
+
                 // Check if content is being used (e.g., as part of the carousel)
                 if (IsContentUsedInCarousel(content))
                 {
-                    // Replace the content in the carousel with a placeholder image path
+                    _logger.LogInformation("Content is used in carousel; replacing with placeholder.");
                     ReplaceWithPlaceholder(content);
                 }
 
                 _context.WebsiteContents.Remove(content);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();  // Ensure changes are saved to the database
+
+                _logger.LogInformation("Content successfully deleted and changes saved.");
+
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting content: {ex.Message}");
+                _logger.LogError($"Error deleting content: {ex.Message} - StackTrace: {ex.StackTrace}");
                 ModelState.AddModelError("", "An error occurred while deleting the content.");
-                return View(content);
+
+                return View("Delete", new WebsiteContent { Id = id });
             }
         }
 
         // Method to replace content in the carousel with a placeholder
         private void ReplaceWithPlaceholder(WebsiteContent content)
         {
-            // Define a default placeholder path
-            string placeholderPath = "/assets/placeholder.png";  // Adjust path as needed
-
-            // Update dependent items in the database
-            var dependentItems = _context.WebsiteContents
-                .Where(c => c.ContentKey.StartsWith("Carousel") && c.ContentValue == content.ContentValue)
-                .ToList();
-
-            foreach (var item in dependentItems)
+            try
             {
-                item.ContentValue = placeholderPath;
-            }
+                string placeholderPath = "/assets/placeholder.png";
 
-            _context.SaveChanges();  // Save changes to update dependencies
+                _logger.LogInformation($"Replacing content '{content.ContentValue}' with placeholder '{placeholderPath}'.");
+
+                var dependentItems = _context.WebsiteContents
+                    .Where(c => c.ContentKey.StartsWith("Carousel") && c.ContentValue == content.ContentValue)
+                    .ToList();
+
+                foreach (var item in dependentItems)
+                {
+                    _logger.LogInformation($"Replacing dependent item with ID {item.Id}.");
+                    item.ContentValue = placeholderPath;
+                }
+
+                _context.SaveChanges(); 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error replacing content with placeholder: {ex.Message}");
+            }
         }
 
         // Method to check if content is used in the carousel
@@ -221,8 +235,8 @@ namespace IotaWebApp.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving file: {ex.Message}");
-                return null;  // Return null if there's an error
+                _logger.LogError($"Error saving file: {ex.Message}");
+                return null;
             }
         }
 

@@ -1,5 +1,4 @@
 using IotaWebApp.Data;
-using IotaWebApp.Models;  // Include models if you use a separate file for DbInitializer
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,10 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<WebsiteCMSDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Add services for controllers with views
 builder.Services.AddControllersWithViews();
 
-// Build the application
+// Configure secure cookie policy
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.Strict; 
+    options.Secure = CookieSecurePolicy.Always;  
+    options.HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always;
+});
+
 var app = builder.Build();
 
 // Ensure the database is created and seed it with initial data
@@ -23,30 +28,31 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<WebsiteCMSDbContext>();
 
-    // Ensure the database is created and apply migrations if necessary
     context.Database.Migrate();
 
     // Seed the database with initial data
-    DbInitializer.Initialize(context);  // Add this method in your DbInitializer.cs or in Program.cs itself
+    DbInitializer.Initialize(context); 
 }
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();  // Enables detailed error pages in development mode
+    app.UseDeveloperExceptionPage(); 
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");  // Handle exceptions in production mode
-    app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles(); // Serve static files (CSS, JS, images, etc.)
+app.UseHttpsRedirection();  // Redirect HTTP requests to HTTPS
+app.UseStaticFiles(); 
 
-app.UseRouting();  // Enable routing middleware
+app.UseRouting(); 
 
-app.UseAuthorization();  // Enable authorization middleware
+app.UseCookiePolicy(); 
+
+app.UseAuthorization();
+
 
 // Map the default controller route
 app.MapControllerRoute(
