@@ -2,7 +2,7 @@
 
 <h2>Manage Website Content</h2>
 
-<a asp-action="CreateContent" class="btn btn-success">Add New Content</a>
+<a asp-action="Create" class="btn btn-success">Add New Content</a>
 
 <table class="table mt-3">
     <thead>
@@ -19,8 +19,11 @@
                 <td>@item.ContentKey</td>
                 <td>@item.ContentValue</td>
                 <td>
-                    <a asp-action="EditContent" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
-                    <a asp-action="DeleteContent" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <!-- Add a Delete button with a confirmation dialog -->
+                    <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
             </tr>
         }

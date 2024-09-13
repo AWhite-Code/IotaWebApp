@@ -1,13 +1,18 @@
-﻿@{
+﻿@model IEnumerable<IotaWebApp.Models.WebsiteContent>
+
+@{
     ViewData["Title"] = "Home";
+    var heroImage = Model.FirstOrDefault(c => c.ContentKey == "HeroImage")?.ContentValue;
+    var heroTitle = Model.FirstOrDefault(c => c.ContentKey == "HeroTitle")?.ContentValue;
+    var buttonText = Model.FirstOrDefault(c => c.ContentKey == "HeroButtonText")?.ContentValue;
 }
 
 <!-- Full-Width Hero Section and Carousel -->
 <div class="full-screen-width">
     <div class="carousel">
-        <!-- Your Hero Image -->
+        <!-- Dynamic Hero Image -->
         <div>
-            <img src="~/Assets/image4.png" alt="Hero Image" class="hero-image" />
+            <img src="@Url.Content(heroImage)" alt="Hero Image" class="hero-image" />
             <!-- Caption for Centered Text -->
             <div class="carousel-caption">
                 <h1>Creating Exceptional Workspaces</h1>
@@ -17,18 +22,11 @@
                 <a href="#" class="button">Explore Our Work</a>
             </div>
         </div>
-        <!-- Placeholder Image 1 -->
+        <!-- Additional carousel slides -->
         <div>
-            <img src="https://via.placeholder.com/1920x1080?text=Slide+2" alt="Placeholder Image 1" class="hero-image" />
+            <img src="@Url.Content(Model.FirstOrDefault(c => c.ContentKey == "CarouselSlide1")?.ContentValue ?? "/assets/placeholder.png")" alt="Slide 1" class="hero-image" />
         </div>
-        <!-- Placeholder Image 2 -->
-        <div>
-            <img src="https://via.placeholder.com/1920x1080?text=Slide+3" alt="Placeholder Image 2" class="hero-image" />
-        </div>
-        <!-- Placeholder Image 3 -->
-        <div>
-            <img src="https://via.placeholder.com/1920x1080?text=Slide+4" alt="Placeholder Image 3" class="hero-image" />
-        </div>
+        <!-- More slides... -->
     </div>
 </div>
 
