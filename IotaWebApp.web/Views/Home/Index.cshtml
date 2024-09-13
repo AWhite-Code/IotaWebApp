@@ -12,20 +12,25 @@
     <div class="carousel">
         <div>
             <img src="@Url.Content(heroImage)" alt="Hero Image" class="hero-image" />
+
             <!-- Caption for Centered Text -->
             <div class="carousel-caption">
                 <h1>Creating Exceptional Workspaces</h1>
             </div>
-            <div class="carousel-button">
-                <a href="#" class="button">Explore Our Work</a>
-            </div>
         </div>
+
         <div>
             <img src="@Url.Content(Model.FirstOrDefault(c => c.ContentKey == "CarouselSlide1")?.ContentValue ?? "/assets/placeholder.png")" alt="Slide 1" class="hero-image" />
         </div>
-        <!-- More slides Here -->
+        <!-- More slides here -->
+    </div>
+
+    <!-- Moved Button Container Outside the Carousel -->
+    <div class="carousel-button-container">
+        <a href="#" class="button">Explore Our Work</a>
     </div>
 </div>
+
 
 <!-- Initialize Slick Slider and Foundation -->
 <script>
@@ -38,3 +43,32 @@
         cssEase: 'linear'
     });
 </script>
+
+
+<!-- Section: Circles and Text Side by Side -->
+<div class="grid-container">
+    <div class="grid-x grid-margin-x align-center">
+
+        <!-- Left Column: Circles Image -->
+        <div class="cell medium-6 small-12 align-center text-center">
+            <img src="~/assets/circle-icons.png" alt="Circle Icons" class="circle-icons">
+        </div>
+
+        <!-- Right Column: Body of Text -->
+        <div class="cell medium-6 small-12 align-center">
+            <div class="text-section">
+                <!-- Line 1: Title -->
+                <h2>Custom build design & furniture solutions</h2>
+
+                <!-- Line 2: Description with indentation -->
+                <p>Specialists in transforming commercial spaces into agile, functional and empowering environments</p>
+
+                <!-- Mustard Button -->
+                <a href="#" class="mustard-button">WHAT WE DO</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

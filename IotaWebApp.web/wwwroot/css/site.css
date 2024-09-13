@@ -2,40 +2,41 @@
 body, html {
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-x: hidden; 
     width: 100%;
     font-family: 'Red Hat Display', sans-serif;
+    background-color: #F4F4F4;
 }
 
 /* Navigation Bar */
 #header-container .top-bar {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
-    padding: 0 20px; /* Add padding for spacing */
-    box-sizing: border-box; /* Include padding within width */
+    padding: 0 20px; 
+    box-sizing: border-box; 
 }
 
 /* Updated Logo Container */
 #logo-container {
-    margin-left: 2vw; /* Move the logo slightly to the right using viewport width */
+    margin-left: 2vw; 
     display: flex;
-    align-items: center; /* Center vertically */
+    align-items: center; 
 }
 
     /* Adjust IOTA Logo Image */
     #logo-container img {
-        max-height: 50px; /* Ensure logo height fits nicely */
-        display: block; /* Remove inline spacing */
-        margin: 0; /* Reset any default margin */
+        max-height: 50px;
+        display: block; 
+        margin: 0; 
     }
 
 #top-bar-links a {
-    color: #000 !important; /* Clickies are black by default */
+    color: #000 !important; /* NOTE: Clickies are black by default */
     font-weight: 500;
     margin: 0 10px;
 }
 
-#top-bar-links .home-link { /* Styling for the Home button */
+#top-bar-links .home-link {
     color: #DDB62E !important; /* Mustard yellow for Home button */
 }
 
@@ -50,22 +51,21 @@ body, html {
     border-top-right-radius: 0;
     padding: 10px 20px;
     text-transform: uppercase;
-    margin-bottom: 5px; /* Adds space below the button */
+    margin-bottom: 5px;
 }
 
 /* Full-Width Hero Section and Carousel */
 .full-screen-width {
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    max-width: 100vw; 
-    width: 100vw; 
+    position: relative; 
+    max-width: 100%; 
+    width: 100%;
     overflow: hidden; 
     box-sizing: border-box;
+    margin: 0 auto; 
 }
 
+
+/* Carousel styling */
 .carousel {
     width: 100%;
     margin: 0;
@@ -74,14 +74,11 @@ body, html {
 }
 
 .hero-image {
-    width: 100%; 
-    display: block; 
-    margin: 0; 
-    max-width: 100%; 
-    border-top-left-radius: 0; /* Straight top edges */
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 0; /* Straight bottom edges */
-    border-bottom-right-radius: 0;
+    width: 100%;
+    display: block;
+    margin: 0;
+    max-width: 100%;
+    border-radius: 0; /* Straight edges for uniformity */
 }
 
 /* Centered Caption Text */
@@ -101,24 +98,32 @@ body, html {
         text-align: center; /* Align the heading to the center */
     }
 
-/* New Div for Button */
-.carousel-button {
+.carousel-button-container {
     position: absolute;
-    bottom: 0; 
-    right: 0; 
-    transform: translate(0, 50%);
+    bottom: -1%; 
+    right: 0%; 
+    z-index: 10; 
 }
 
-    .carousel-button .button {
+    /* Button Styling */
+    .carousel-button-container .button {
         background-color: #18BEAB; /* Teal background */
-        color: #fff; 
-        padding: 1em 2em; 
-        border-radius: 20px 0 20px 20px; /* Square box with rounded edges */
-        border: none; 
+        color: #fff;
+        padding: 1em 2em;
+        border-radius: 20px 0 20px 20px; /* Right angle on top right, rounded on other corners */
+        border: none;
         text-transform: uppercase;
         font-weight: bold;
         box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.2);
+        text-align: center;
+        cursor: pointer;
     }
+
+        /* Hover effect for the button */
+        .carousel-button-container .button:hover {
+            background-color: #16a79d; /* Slightly darker teal */
+        }
+
 
 /* Responsive Adjustments */
 @media screen and (max-width: 768px) {
@@ -126,11 +131,61 @@ body, html {
         font-size: 2rem;
     }
 
-    .carousel-button {
-        right: 0; 
+    .carousel-button-container .button {
+        padding: 0.8em 1.5em; /* Smaller padding for smaller screens */
+    }
+}
+
+/* Ensure the circles image is centered and responsive */
+.circle-icons {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto; /* Centers the image horizontally */
+    display: block; /* Required for margin auto to work */
+}
+
+/* Styles for the right-hand side text */
+.text-section {
+    padding: 20px; 
+    text-align: left; 
+    color: #000;
+}
+
+    /* Style for the first line of text */
+    .text-section h2 {
+        font-size: 55px; 
+        font-family: 'DM Serif Display', serif; 
+        margin-bottom: 20px; 
     }
 
-        .carousel-button .button {
-            padding: 0.8em 1.5em; /* Smaller padding for smaller screens */
-        }
+    /* Style for the second line of text with indentation */
+    .text-section p {
+        font-size: 16px;
+        font-family: 'Red Hat Display', sans-serif; 
+        font-weight: 500; 
+        line-height: 1.6;  
+        margin-bottom: 15px; 
+        margin-left: 20px; 
+    }
+
+/* Style for the Mustard Button */
+.mustard-button {
+    display: inline-block;
+    background-color: #D8A31A; 
+    color: #fff; 
+    font-family: 'Red Hat Display', sans-serif; 
+    font-weight: 500; 
+    font-size: 16px; 
+    padding: 12px 30px; 
+    border-radius: 50px; /* Fully rounded button */
+    text-decoration: none; 
+    margin-left: 20px; 
+    margin-top: 20px; 
+    text-align: center; 
+    cursor: pointer; 
 }
+
+    /* Hover effect for the button */
+    .mustard-button:hover {
+        background-color: #b58415;
+    }
