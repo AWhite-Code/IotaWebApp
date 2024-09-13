@@ -1,70 +1,45 @@
-﻿@* Views/Home/Index.cshtml *@
-@{
+﻿@{
     ViewData["Title"] = "Home";
 }
 
-<!-- Grid Container for Main Content -->
-<div class="grid-container fluid">
-    <!-- Grid X for Carousel -->
-    <div class="grid-x grid-margin-x align-center">
-        <div class="cell small-12 large-10">
-            <!-- Large screens: 10 columns wide, small screens: full width -->
-            <div class="carousel-container">
-                <div class="carousel">
-                    <div>
-                        <img src="~/Assets/image4.png" alt="Image 4" />
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/800x400?text=Slide+2" alt="Slide 2" />
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/800x400?text=Slide+3" alt="Slide 3" />
-                    </div>
-                    <div>
-                        <img src="https://via.placeholder.com/800x400?text=Slide+4" alt="Slide 4" />
-                    </div>
-                </div>
+<!-- Full-Width Hero Section and Carousel -->
+<div class="full-screen-width">
+    <div class="carousel">
+        <!-- Your Hero Image -->
+        <div>
+            <img src="~/Assets/image4.png" alt="Hero Image" class="hero-image" />
+            <!-- Caption for Centered Text -->
+            <div class="carousel-caption">
+                <h1>Creating Exceptional Workspaces</h1>
             </div>
+            <!-- New Div for Button -->
+            <div class="carousel-button">
+                <a href="#" class="button">Explore Our Work</a>
+            </div>
+        </div>
+        <!-- Placeholder Image 1 -->
+        <div>
+            <img src="https://via.placeholder.com/1920x1080?text=Slide+2" alt="Placeholder Image 1" class="hero-image" />
+        </div>
+        <!-- Placeholder Image 2 -->
+        <div>
+            <img src="https://via.placeholder.com/1920x1080?text=Slide+3" alt="Placeholder Image 2" class="hero-image" />
+        </div>
+        <!-- Placeholder Image 3 -->
+        <div>
+            <img src="https://via.placeholder.com/1920x1080?text=Slide+4" alt="Placeholder Image 3" class="hero-image" />
         </div>
     </div>
 </div>
 
-<!-- Reference Local CSS Files for Slick Carousel -->
-<link href="~/lib/slick-carousel/slick.css" rel="stylesheet" />
-<link href="~/lib/slick-carousel/slick-theme.css" rel="stylesheet" />
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/slick-carousel/slick.min.js"></script>
-
-<!-- Initialize Foundation and Slick Slider -->
-<script src="~/lib/foundation/js/foundation.min.js"></script>
+<!-- Initialize Slick Slider and Foundation -->
 <script>
-    $(document).foundation(); 
-
-    $(document).ready(function () {
-        if (typeof $ === 'undefined') {
-            console.error('jQuery is not loaded correctly.');
-        } else {
-            console.log('jQuery is loaded.');
-
-            if ($('.carousel').length > 0) {
-                console.log('Carousel element found. Initializing Slick slider...');
-                $('.carousel').slick({
-                    dots: true,
-                    infinite: true,
-                    speed: 500,
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                    arrows: true,
-                    prevArrow: '<button type="button" class="slick-prev">Previous</button>',
-                    nextArrow: '<button type="button" class="slick-next">Next</button>'
-                }).on('init', function (event, slick) {
-                    console.log('Slick slider initialized.');
-                }).on('setPosition', function (event, slick) {
-                    console.log('Slick slider set position.');
-                });
-            } else {
-                console.error('Carousel element not found.');
-            }
-        }
+    $(document).foundation();
+    $('.carousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        fade: true,
+        cssEase: 'linear'
     });
 </script>
