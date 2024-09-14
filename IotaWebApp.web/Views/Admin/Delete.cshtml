@@ -1,17 +1,24 @@
-﻿@model IotaWebApp.Models.WebsiteContent
+﻿@model WebsiteContent
 
 <h2>Delete Content</h2>
 
-<p>Are you sure you want to delete this content?</p>
+@if (Model.ContentType == "Image" && Model.ContentValue != "/assets/placeholder.png")
+{
+    <p>Are you sure you want to replace this image with the placeholder? You can edit it later to restore or change the content.</p>
+}
+else
+{
+    <p>Are you sure you want to delete this content? This action cannot be undone.</p>
+}
 
 <div>
     <h4>@Model.ContentKey</h4>
     <p>@Model.ContentValue</p>
 </div>
 
-<form asp-action="DeleteConfirmed" method="post">
-    @Html.AntiForgeryToken()  <!-- Ensure anti-forgery token is included -->
-    <input type="hidden" asp-for="Id" />  <!-- Correctly bind to Id of the model -->
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Delete</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

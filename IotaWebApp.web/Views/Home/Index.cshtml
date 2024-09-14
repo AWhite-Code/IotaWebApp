@@ -2,73 +2,107 @@
 
 @{
     ViewData["Title"] = "Home";
-    var heroImage = Model.FirstOrDefault(c => c.ContentKey == "HeroImage")?.ContentValue;
-    var heroTitle = Model.FirstOrDefault(c => c.ContentKey == "HeroTitle")?.ContentValue;
-    var buttonText = Model.FirstOrDefault(c => c.ContentKey == "HeroButtonText")?.ContentValue;
+
+    // Helper function to get content by key
+    Func<string, string> GetContentValue = key => Model.FirstOrDefault(c => c.ContentKey == key)?.ContentValue ?? string.Empty;
+
+    // Hero Section Content
+    var heroImage = GetContentValue("HeroImage") ?? "/assets/placeholder.png";
+    var heroTitle = GetContentValue("HeroTitle") ?? "Default Hero Title";
+    var heroButtonText = GetContentValue("HeroButtonText") ?? "Learn More";
+    var heroButtonLink = GetContentValue("HeroButtonLink") ?? "#";
+
+    // Section Content
+    var section1Title = GetContentValue("Section1Title") ?? "Section Title";
+    var section1Description = GetContentValue("Section1Description") ?? "Section description...";
+    var section1ButtonText = GetContentValue("Section1ButtonText") ?? "Click Here";
+    var section1ButtonLink = GetContentValue("Section1ButtonLink") ?? "#";
+
+    // Circle Icons Image
+    var circleIconsImage = GetContentValue("CircleIconsImage") ?? "/assets/circle-icons.png";
+
+    // Placeholder Images for Carousel
+    var placeholderImage1 = GetContentValue("CarouselPlaceholder1") ?? "/assets/placeholder.png";
+    var placeholderImage2 = GetContentValue("CarouselPlaceholder2") ?? "/assets/placeholder.png";
+    var placeholderImage3 = GetContentValue("CarouselPlaceholder3") ?? "/assets/placeholder.png";
 }
 
-<!-- Full-Width Hero Section and Carousel -->
-<div class="full-screen-width">
-    <div class="carousel">
-        <div>
-            <img src="@Url.Content(heroImage)" alt="Hero Image" class="hero-image" />
+<!-- Full-Width Hero Section Using Foundation XY Grid -->
+<div class="grid-container fluid full">
+    <!-- Fluid container for full-width content -->
+    <div class="grid-x">
+        <div class="cell large-12 medium-12 small-12">
+            <!-- Full-width cell -->
+            <div class="carousel">
+                <!-- Hero Image Slide -->
+                <div>
+                    <img src="@Url.Content(heroImage)" alt="Hero Image" class="hero-image" />
+                    <div class="carousel-caption">
+                        <h1>@heroTitle</h1>
+                    </div>
+                </div>
 
-            <!-- Caption for Centered Text -->
-            <div class="carousel-caption">
-                <h1>Creating Exceptional Workspaces</h1>
+                <!-- Additional Carousel Slides -->
+                @{
+                    var carouselSlides = Model.Where(c => c.ContentKey.StartsWith("CarouselSlide"));
+                    foreach (var slide in carouselSlides)
+                    {
+                        <div>
+                            <img src="@Url.Content(slide.ContentValue ?? "/assets/placeholder.png")" alt="@slide.ContentKey" class="hero-image" />
+                        </div>
+                    }
+
+                    // Adding dynamically fetched placeholder images to the carousel
+                    var placeholderImages = new List<string> { placeholderImage1, placeholderImage2, placeholderImage3 };
+                    foreach (var placeholderImage in placeholderImages)
+                    {
+                        <div>
+                            <img src="@Url.Content(placeholderImage)" alt="Placeholder Image" class="hero-image" />
+                        </div>
+                    }
+                }
+            </div>
+
+            <!-- Hero Button -->
+            <div class="carousel-button-container text-center">
+                <a href="@heroButtonLink" class="button">@heroButtonText</a>
             </div>
         </div>
-
-        <div>
-            <img src="@Url.Content(Model.FirstOrDefault(c => c.ContentKey == "CarouselSlide1")?.ContentValue ?? "/assets/placeholder.png")" alt="Slide 1" class="hero-image" />
-        </div>
-        <!-- More slides here -->
-    </div>
-
-    <!-- Moved Button Container Outside the Carousel -->
-    <div class="carousel-button-container">
-        <a href="#" class="button">Explore Our Work</a>
     </div>
 </div>
 
+<!-- Initialize Carousel -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.carousel').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                fade: true,
+                cssEase: 'linear',
+                autoplay: true,
+                autoplaySpeed: 3000
+            });
+        });
+    </script>
+}
 
-<!-- Initialize Slick Slider and Foundation -->
-<script>
-    $(document).foundation();
-    $('.carousel').slick({
-        dots: true,
-        infinite: true,
-        speed: 500,
-        fade: true,
-        cssEase: 'linear'
-    });
-</script>
-
-
-<!-- Section: Circles and Text Side by Side -->
+<!-- Section: Circles and Text Side by Side Using Foundation XY Grid -->
 <div class="grid-container">
     <div class="grid-x grid-margin-x align-center">
-
-        <!-- Left Column: Circles Image -->
+        <!-- Left Column: Circle Icons Image -->
         <div class="cell medium-6 small-12 align-center text-center">
-            <img src="~/assets/circle-icons.png" alt="Circle Icons" class="circle-icons">
+            <img src="@Url.Content(circleIconsImage)" alt="Circle Icons" class="circle-icons">
         </div>
 
-        <!-- Right Column: Body of Text -->
+        <!-- Right Column: Text Content -->
         <div class="cell medium-6 small-12 align-center">
             <div class="text-section">
-                <!-- Line 1: Title -->
-                <h2>Custom build design & furniture solutions</h2>
-
-                <!-- Line 2: Description with indentation -->
-                <p>Specialists in transforming commercial spaces into agile, functional and empowering environments</p>
-
-                <!-- Mustard Button -->
-                <a href="#" class="mustard-button">WHAT WE DO</a>
+                <h2>@section1Title</h2>
+                <p>@section1Description</p>
+                <a href="@section1ButtonLink" class="mustard-button">@section1ButtonText</a>
             </div>
         </div>
     </div>
 </div>
-
-
-

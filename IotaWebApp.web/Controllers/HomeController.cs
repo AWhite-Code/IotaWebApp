@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; 
-using IotaWebApp.Data;
+using System.Threading.Tasks;
+using System.Linq;
+using IotaWebApp.Data; // Replace with your actual namespace
+using Microsoft.EntityFrameworkCore;
 
 namespace IotaWebApp.Controllers
 {
@@ -15,8 +17,8 @@ namespace IotaWebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var contents = await _context.WebsiteContents.ToListAsync(); 
-            return View(contents);
+            var contentList = await _context.WebsiteContents.ToListAsync();
+            return View(contentList);
         }
     }
 }

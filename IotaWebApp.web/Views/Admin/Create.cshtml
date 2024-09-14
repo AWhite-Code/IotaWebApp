@@ -3,18 +3,65 @@
 <h2>Create New Content</h2>
 
 <form asp-action="Create" method="post" enctype="multipart/form-data">
-    <!-- Enable file upload -->
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <!-- ContentKey Field -->
     <div class="form-group">
         <label asp-for="ContentKey"></label>
         <input asp-for="ContentKey" class="form-control" />
+        <span asp-validation-for="ContentKey" class="text-danger"></span>
     </div>
+
+    <!-- ContentType Field -->
     <div class="form-group">
+        <label asp-for="ContentType"></label>
+        <select asp-for="ContentType" class="form-control" id="ContentType">
+            <option value="">-- Select Content Type --</option>
+            <option value="Image">Image</option>
+            <option value="Text">Text</option>
+            <!-- Add other content types as needed -->
+        </select>
+        <span asp-validation-for="ContentType" class="text-danger"></span>
+    </div>
+
+    <!-- ContentValue Field (Text) -->
+    <div class="form-group" id="contentValueGroup">
         <label asp-for="ContentValue"></label>
         <textarea asp-for="ContentValue" class="form-control"></textarea>
+        <span asp-validation-for="ContentValue" class="text-danger"></span>
     </div>
-    <div class="form-group">
+
+    <!-- File Upload Field (Image) -->
+    <div class="form-group" id="fileUploadGroup">
         <label for="file">Upload Image</label>
         <input type="file" class="form-control" name="file" />
+        @Html.ValidationMessage("file", "", new { @class = "text-danger" })
     </div>
+
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        $(document).ready(function () {
+            function toggleFields() {
+                var contentType = $('#ContentType').val();
+                if (contentType === 'Text') {
+                    $('#contentValueGroup').show();
+                    $('#fileUploadGroup').hide();
+                } else if (contentType === 'Image') {
+                    $('#contentValueGroup').hide();
+                    $('#fileUploadGroup').show();
+                } else {
+                    $('#contentValueGroup').hide();
+                    $('#fileUploadGroup').hide();
+                }
+            }
+
+            $('#ContentType').change(toggleFields);
+            toggleFields();
+        });
+    </script>
+}

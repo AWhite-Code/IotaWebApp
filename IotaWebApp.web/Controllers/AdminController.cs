@@ -5,11 +5,10 @@ using IotaWebApp.Models;
 
 namespace IotaWebApp.Controllers
 {
-    [Route("Admin")]
     public class AdminController : Controller
     {
         private readonly WebsiteCMSDbContext _context;
-        private readonly ILogger<AdminController> _logger; 
+        private readonly ILogger<AdminController> _logger;
         private readonly string _uploadsFolder = "uploads";
 
         public AdminController(WebsiteCMSDbContext context, ILogger<AdminController> logger)
@@ -18,9 +17,7 @@ namespace IotaWebApp.Controllers
             _logger = logger;
         }
 
-        // Read: List all contents
-        [HttpGet]
-        [Route("Index")]
+        // GET: Admin/Index
         public async Task<IActionResult> Index()
         {
             try
@@ -36,29 +33,48 @@ namespace IotaWebApp.Controllers
             }
         }
 
-        // Create: Display the form to create new content
-        [HttpGet]
-        [Route("Create")]
+        // GET: Admin/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // Create: Handle the submission of new content, including file upload
+        // POST: Admin/Create
         [HttpPost]
-        [Route("Create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(WebsiteContent content, IFormFile file)
         {
+            // Clear pre-existing content
+            ModelState.Remove("file");
+            ModelState.Remove("ContentValue");
+
+            if (content.ContentType == "Image")
+            {
+                if (file != null && file.Length > 0)
+                {
+                    content.ContentValue = await SaveFile(file);
+                }
+                else
+                {
+                    ModelState.AddModelError("file", "An image file is required for Image content type.");
+                }
+            }
+            else if (content.ContentType == "Text")
+            {
+                if (string.IsNullOrWhiteSpace(content.ContentValue))
+                {
+                    ModelState.AddModelError("ContentValue", "Content Value is required for Text content type.");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("ContentType", "Please select a valid Content Type.");
+            }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (file != null && file.Length > 0)
-                    {
-                        content.ContentValue = await SaveFile(file);
-                    }
-
                     _context.WebsiteContents.Add(content);
                     await _context.SaveChangesAsync();
                     _logger.LogInformation("Content created successfully.");
@@ -70,12 +86,16 @@ namespace IotaWebApp.Controllers
                     ModelState.AddModelError("", "An error occurred while creating the content.");
                 }
             }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                _logger.LogWarning("ModelState is invalid: " + string.Join("; ", errors));
+            }
+
             return View(content);
         }
 
-        // Edit: Display the form to edit existing content
-        [HttpGet]
-        [Route("Edit/{id?}")]
+        // GET: Admin/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,36 +113,68 @@ namespace IotaWebApp.Controllers
             return View(content);
         }
 
-        // Edit: Handle the submission of updated content, including file upload
+        // POST: Admin/Edit/5
         [HttpPost]
-        [Route("Edit/{id?}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, WebsiteContent content, IFormFile file)
         {
             if (id != content.Id)
             {
-                _logger.LogWarning($"Edit action: Mismatched ID {id} for content.");
                 return NotFound();
+            }
+
+            // Clear any existing errors for 'file' to avoid false validation failures
+            ModelState.Remove("file");
+
+            if (content.ContentType == "Image")
+            {
+                if (file != null && file.Length > 0)
+                {
+                    // Save the new image file and update ContentValue
+                    content.ContentValue = await SaveFile(file);
+                }
+                else
+                {
+                    // If no new file is uploaded, keep the existing ContentValue
+                    var existingContentValue = _context.WebsiteContents.AsNoTracking()
+                        .FirstOrDefault(c => c.Id == content.Id)?.ContentValue;
+
+                    if (string.IsNullOrEmpty(existingContentValue))
+                    {
+                        // If there's no existing ContentValue, require a file
+                        ModelState.AddModelError("file", "An image file is required for Image content type.");
+                    }
+                    else
+                    {
+                        // Keep the existing ContentValue
+                        content.ContentValue = existingContentValue;
+                    }
+                }
+            }
+            else if (content.ContentType == "Text")
+            {
+                if (string.IsNullOrWhiteSpace(content.ContentValue))
+                {
+                    ModelState.AddModelError("ContentValue", "Content Value is required for Text content type.");
+                }
+                // No need to process the file field when ContentType is "Text"
+            }
+            else
+            {
+                ModelState.AddModelError("ContentType", "Please select a valid Content Type.");
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (file != null && file.Length > 0)
-                    {
-                        // Save the new file and update ContentValue
-                        content.ContentValue = await SaveFile(file);
-                    }
-
                     _context.Update(content);
                     await _context.SaveChangesAsync();
-                    _logger.LogInformation("Content edited successfully.");
+                    _logger.LogInformation("Content updated successfully.");
                     return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException ex)
+                catch (DbUpdateConcurrencyException)
                 {
-                    _logger.LogError($"Concurrency error while editing content: {ex.Message}");
                     if (!WebsiteContentExists(content.Id))
                     {
                         return NotFound();
@@ -132,18 +184,43 @@ namespace IotaWebApp.Controllers
                         throw;
                     }
                 }
-                catch (Exception ex)
-                {
-                    _logger.LogError($"Error editing content: {ex.Message}");
-                    ModelState.AddModelError("", "An error occurred while editing the content.");
-                }
             }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                _logger.LogWarning("ModelState is invalid: " + string.Join("; ", errors));
+            }
+
             return View(content);
         }
 
-        // Delete: Handle the deletion of content with dependency check
-        [HttpPost]
-        [Route("Delete/{id?}")]
+        private bool WebsiteContentExists(int id)
+        {
+            return _context.WebsiteContents.Any(e => e.Id == id);
+        }
+
+        // GET: Admin/Delete/5
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == 0)
+            {
+                _logger.LogWarning("Delete action: No ID provided.");
+                return NotFound();
+            }
+
+            var content = await _context.WebsiteContents.FindAsync(id);
+            if (content == null)
+            {
+                _logger.LogWarning($"Delete action: Content with ID {id} not found.");
+                return NotFound();
+            }
+
+            return View(content);
+        }
+
+        // POST: Admin/Delete/5
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -153,30 +230,43 @@ namespace IotaWebApp.Controllers
                 if (content == null)
                 {
                     _logger.LogWarning($"DeleteConfirmed action: Content with ID {id} not found.");
-                    return NotFound();  // Return a NotFound view if content does not exist
+                    return NotFound();
                 }
 
-                _logger.LogInformation($"Attempting to delete content with ID {id} and ContentKey {content.ContentKey}.");
-
-                // Check if content is being used (e.g., as part of the carousel)
-                if (IsContentUsedInCarousel(content))
+                // Check if content is an image
+                if (content.ContentType == "Image")
                 {
-                    _logger.LogInformation("Content is used in carousel; replacing with placeholder.");
-                    ReplaceWithPlaceholder(content);
+                    // Check if content is already the placeholder
+                    if (content.ContentValue == "/assets/placeholder.png")
+                    {
+                        // Delete the content from the database
+                        _context.WebsiteContents.Remove(content);
+                        _logger.LogInformation($"Content with ID {id} is a placeholder and has been deleted.");
+                    }
+                    else
+                    {
+                        // Replace the content value with the placeholder image path
+                        string placeholderPath = "/assets/placeholder.png";
+                        content.ContentValue = placeholderPath;
+                        _logger.LogInformation($"Content with ID {id} replaced with placeholder.");
+                    }
+                }
+                else
+                {
+                    // For non-image content, delete it
+                    _context.WebsiteContents.Remove(content);
+                    _logger.LogInformation($"Non-image content with ID {id} has been deleted.");
                 }
 
-                _context.WebsiteContents.Remove(content);
-                await _context.SaveChangesAsync();  // Ensure changes are saved to the database
-
-                _logger.LogInformation("Content successfully deleted and changes saved.");
+                // Save changes to the database
+                await _context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error deleting content: {ex.Message} - StackTrace: {ex.StackTrace}");
-                ModelState.AddModelError("", "An error occurred while deleting the content.");
-
+                _logger.LogError($"Error updating content: {ex.Message} - StackTrace: {ex.StackTrace}");
+                ModelState.AddModelError("", "An error occurred while updating the content.");
                 return View("Delete", new WebsiteContent { Id = id });
             }
         }
@@ -200,19 +290,12 @@ namespace IotaWebApp.Controllers
                     item.ContentValue = placeholderPath;
                 }
 
-                _context.SaveChanges(); 
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Error replacing content with placeholder: {ex.Message}");
             }
-        }
-
-        // Method to check if content is used in the carousel
-        private bool IsContentUsedInCarousel(WebsiteContent content)
-        {
-            // Check if the content key matches keys used in the carousel
-            return content.ContentKey == "HeroImage" || content.ContentKey.StartsWith("Carousel");
         }
 
         // Utility method to save uploaded files
@@ -238,11 +321,6 @@ namespace IotaWebApp.Controllers
                 _logger.LogError($"Error saving file: {ex.Message}");
                 return null;
             }
-        }
-
-        private bool WebsiteContentExists(int id)
-        {
-            return _context.WebsiteContents.Any(e => e.Id == id);
         }
     }
 }

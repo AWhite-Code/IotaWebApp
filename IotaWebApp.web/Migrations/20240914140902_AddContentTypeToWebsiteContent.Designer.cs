@@ -3,6 +3,7 @@ using IotaWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IotaWebApp.web.Migrations
 {
     [DbContext(typeof(WebsiteCMSDbContext))]
-    partial class WebsiteCMSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240914140902_AddContentTypeToWebsiteContent")]
+    partial class AddContentTypeToWebsiteContent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
