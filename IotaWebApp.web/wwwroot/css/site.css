@@ -205,3 +205,103 @@ body, html {
     .mustard-button:hover {
         background-color: #b58415;
     }
+/* Section Title Styling */
+.section-title {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+/* Content Box Styling for Three-Column Layout */
+.content-box {
+    padding: 20px;
+    background-color: #fff;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative; /* Required for absolute positioning inside */
+}
+
+/* Image Overlay Container */
+.image-overlay-container {
+    position: relative; /* Parent should be relative for absolute positioning */
+    overflow: hidden; /* Clip content that goes beyond the container */
+    border-radius: 15px; /* Rounded corners for images */
+}
+
+.case-study-image {
+    width: 100%;
+    height: auto;
+    border-radius: 15px; /* Ensure rounded corners for images */
+    display: block; /* Centered and contained */
+}
+
+/* Overlay Content Styling for Left Column */
+.overlay-content.left {
+    position: absolute; /* Position over the image */
+    top: 74%; /* Start halfway down */
+    left: 48%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Correct the offset */
+    text-align: left; /* Align text to the left */
+    padding: 10px; /* Add padding for better readability */
+    width: 80%; /* Limit width */
+    color: #fff; /* White text for contrast */
+    z-index: 2; /* Ensure the overlay is above the image */
+    display: flex; /* Use flexbox to stack items */
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align text to the left */
+    justify-content: flex-start; /* Align items to start */
+}
+
+/* Overlay Content Styling for Middle and Right Columns */
+.overlay-content.bottom {
+    position: absolute; /* Position over the image */
+    bottom: 10px; /* Align content at the bottom with padding */
+    left: 54%; /* Center horizontally */
+    transform: translateX(-50%); /* Correct horizontal offset */
+    text-align: left; /* Align text to the left */
+    width: 90%; /* Limit width */
+    color: #fff; /* White text for contrast */
+    z-index: 2; /* Ensure the overlay is above the image */
+    display: flex; /* Use flexbox to stack items */
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start; /* Align text to the left */
+    justify-content: flex-end; /* Align items to the bottom */
+    padding-bottom: 10px; /* Add padding to the bottom */
+}
+
+/* Title Styling for Overlay Content */
+.overlay-content h3 {
+    font-size: 22px; /* Title font size */
+    text-align: left; /* Align text to the left */
+    margin: 5px 0; /* Add margin for spacing */
+    color: #fff; /* Ensure text is visible */
+    font-weight: bold; /* Make titles bold */
+}
+
+/* Body Text Styling for Overlay Content */
+.overlay-content p {
+    font-size: 13px; /* Body font size */
+    text-align: left; /* Align text to the left */
+    margin: 5px 0; /* Margin for spacing */
+    color: #fff; /* Ensure text is visible */
+}
+
+/* "View More" Link Styling Inside Overlay */
+.view-more-link {
+    display: inline-block;
+    margin-top: 5px; /* Reduce margin to fit within overlay */
+    color: #fff; /* White color for contrast */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px; /* Font size for 'View More' links */
+    text-align: left; /* Align text to the left */
+}
+
+    .view-more-link:hover {
+        color: #18BEAB; /* Teal on hover */
+        text-decoration: underline; /* Underline on hover */
+    }
+

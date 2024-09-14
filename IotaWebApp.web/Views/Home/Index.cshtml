@@ -25,6 +25,25 @@
     var placeholderImage1 = GetContentValue("CarouselPlaceholder1") ?? "/assets/placeholder.png";
     var placeholderImage2 = GetContentValue("CarouselPlaceholder2") ?? "/assets/placeholder.png";
     var placeholderImage3 = GetContentValue("CarouselPlaceholder3") ?? "/assets/placeholder.png";
+
+    // Section Content for "Explore our latest work..."
+    var sectionTitle = "Explore our latest work...";
+
+    // Content for Left Column
+    var leftImage = GetContentValue("LeftColumnImage") ?? "/assets/placeholder.png";
+    var leftTitle = GetContentValue("LeftColumnTitle") ?? "Case Study Name Here";
+    var leftBody = GetContentValue("LeftColumnBody") ?? "Lorem ipsum dolor...";
+    var leftLink = GetContentValue("LeftColumnLink") ?? "#";
+
+    // Content for Middle Column
+    var middleImage = GetContentValue("MiddleColumnImage") ?? "/assets/placeholder.png";
+    var middleTitle = GetContentValue("MiddleColumnTitle") ?? "Case Study Name Here";
+    var middleLink = GetContentValue("MiddleColumnLink") ?? "#";
+
+    // Content for Right Column
+    var rightImage = GetContentValue("RightColumnImage") ?? "/assets/placeholder.png";
+    var rightTitle = GetContentValue("RightColumnTitle") ?? "Case Study Name Here";
+    var rightLink = GetContentValue("RightColumnLink") ?? "#";
 }
 
 <!-- Full-Width Hero Section Using Foundation XY Grid -->
@@ -108,3 +127,55 @@
         </div>
     </div>
 </div>
+
+<!-- Section Title -->
+<h2 class="section-title text-center">@sectionTitle</h2>
+
+<!-- Three-Column Layout Using Foundation XY Grid -->
+<div class="grid-container">
+    <div class="grid-x grid-margin-x align-center">
+        <!-- Left Column -->
+        <div class="cell medium-4 small-12">
+            <div class="content-box">
+                <div class="image-overlay-container float-right">
+                    <img src="@Url.Content(leftImage)" alt="@leftTitle" class="case-study-image">
+                    <div class="overlay-content left">
+                        <!-- Left-specific class -->
+                        <h3>@leftTitle</h3>
+                        <p>@leftBody</p>
+                        <a href="@leftLink" class="view-more-link">View More → <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Middle Column -->
+        <div class="cell medium-4 small-12 text-center">
+            <div class="content-box">
+                <div class="image-overlay-container">
+                    <img src="@Url.Content(middleImage)" alt="@middleTitle" class="case-study-image">
+                    <div class="overlay-content bottom">
+                        <!-- Bottom-specific class -->
+                        <h3>@middleTitle</h3>
+                        <a href="@middleLink" class="view-more-link">View More → <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="cell medium-4 small-12">
+            <div class="content-box">
+                <div class="image-overlay-container float-left">
+                    <img src="@Url.Content(rightImage)" alt="@rightTitle" class="case-study-image">
+                    <div class="overlay-content bottom">
+                        <!-- Bottom-specific class -->
+                        <h3>@rightTitle</h3>
+                        <a href="@rightLink" class="view-more-link">View More → <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
