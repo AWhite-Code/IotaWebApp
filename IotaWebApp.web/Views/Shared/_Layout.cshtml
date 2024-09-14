@@ -1,4 +1,43 @@
-﻿<!DOCTYPE html>
+﻿@using IotaWebApp.Data;
+@inject WebsiteCMSDbContext DbContext
+
+@{
+    // Helper function to get content by key dynamically from the database
+    Func<string, string> GetContentValue = key => DbContext.WebsiteContents.FirstOrDefault(c => c.ContentKey == key)?.ContentValue ?? string.Empty;
+
+    // Fetch the content dynamically
+
+    // Header Content
+    string headerLogoImage = ViewData["HeaderLogoImage"] as string ?? GetContentValue("HeaderLogoImage") ?? "~/Assets/logo.png";
+    string headerProjectButtonText = ViewData["HeaderProjectButtonText"] as string ?? GetContentValue("HeaderProjectButtonText") ?? "Have a Project?";
+
+    // Navigation Links
+    string navLink1 = ViewData["NavLink1"] as string ?? GetContentValue("NavLink1") ?? "Home";
+    string navLink1Url = ViewData["NavLink1Url"] as string ?? GetContentValue("NavLink1Url") ?? "#";
+
+    string navLink2 = ViewData["NavLink2"] as string ?? GetContentValue("NavLink2") ?? "Services";
+    string navLink2Url = ViewData["NavLink2Url"] as string ?? GetContentValue("NavLink2Url") ?? "#";
+
+    string navLink3 = ViewData["NavLink3"] as string ?? GetContentValue("NavLink3") ?? "Sustainability";
+    string navLink3Url = ViewData["NavLink3Url"] as string ?? GetContentValue("NavLink3Url") ?? "#";
+
+    string navLink4 = ViewData["NavLink4"] as string ?? GetContentValue("NavLink4") ?? "Our Work";
+    string navLink4Url = ViewData["NavLink4Url"] as string ?? GetContentValue("NavLink4Url") ?? "#";
+
+    string navLink5 = ViewData["NavLink5"] as string ?? GetContentValue("NavLink5") ?? "Resources";
+    string navLink5Url = ViewData["NavLink5Url"] as string ?? GetContentValue("NavLink5Url") ?? "#";
+        
+    string navLink6 = ViewData["NavLink6"] as string ?? GetContentValue("NavLink6") ?? "About IOTA";
+    string navLink6Url = ViewData["NavLink6Url"] as string ?? GetContentValue("NavLink6Url") ?? "#";
+
+    string navLink7 = ViewData["NavLink7"] as string ?? GetContentValue("NavLink7") ?? "Get in Touch";
+    string navLink7Url = ViewData["NavLink7Url"] as string ?? GetContentValue("NavLink7Url") ?? "#";
+
+    // Footer Content
+    string footerContent = GetContentValue("FooterContent") ?? "Default footer content here.";
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,32 +51,30 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Red+Hat+Display:wght@400;500&display=swap" rel="stylesheet">
 
-    <!-- Allow views to include additional head elements -->
     @RenderSection("Head", required: false)
 </head>
 <body>
     <!-- Header with Logo, Navigation, and Button -->
     <header>
         <div class="grid-container fluid" id="header-container">
-            <!-- Changed to fluid to allow full width -->
             <div class="grid-x align-justify align-middle">
                 <!-- Logo -->
                 <div class="cell auto" id="logo-container">
-                    <img src="~/Assets/logo.png" alt="IOTA Logo" class="logo" style="max-height: 50px;" />
+                    <img src="@Url.Content(headerLogoImage)" alt="IOTA Logo" class="logo" style="max-height: 50px;" />
                 </div>
                 <!-- Have a Project Button -->
                 <div class="cell shrink text-right" id="nav-container">
-                    <a href="#" class="button project-btn">Have a Project?</a>
+                    <a href="#" class="button project-btn">@headerProjectButtonText</a>
                     <!-- Navigation Links -->
                     <nav>
                         <ul class="menu align-right" id="top-bar-links">
-                            <li><a href="#" class="home-link">Home</a></li>
-                            <li><a href="#">Services</a></li>
-                            <li><a href="#">Sustainability</a></li>
-                            <li><a href="#">Our Work</a></li>
-                            <li><a href="#">Resources</a></li>
-                            <li><a href="#">About IOTA</a></li>
-                            <li><a href="#">Get in Touch</a></li>
+                            <li><a href="@navLink1Url" class="home-link">@navLink1</a></li>
+                            <li><a href="@navLink2Url">@navLink2</a></li>
+                            <li><a href="@navLink3Url">@navLink3</a></li>
+                            <li><a href="@navLink4Url">@navLink4</a></li>
+                            <li><a href="@navLink5Url">@navLink5</a></li>
+                            <li><a href="@navLink6Url">@navLink6</a></li>
+                            <li><a href="@navLink7Url">@navLink7</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -47,13 +84,14 @@
 
     <!-- Main Content -->
     <div class="grid-container fluid">
-        <!-- Changed to fluid to allow full-width content -->
         @RenderBody()
     </div>
 
     <!-- Footer (Add as Needed) -->
     <footer>
-        <!-- Footer Content -->
+        <div class="grid-container">
+            @footerContent <!-- Dynamic footer content -->
+        </div>
     </footer>
 
     <!-- Scripts -->
@@ -61,12 +99,8 @@
     <script src="~/lib/slick-carousel/slick.min.js"></script>
     <script src="~/lib/foundation/js/foundation.min.js"></script>
     <script src="~/js/site.js"></script>
-    <!-- Initialize Foundation -->
-    <script>
-        $(document).foundation();
-    </script>
+    <script>$(document).foundation();</script>
 
-    <!-- Allow views to include additional scripts -->
     @RenderSection("Scripts", required: false)
 </body>
 </html>

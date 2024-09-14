@@ -5,7 +5,7 @@ body, html {
     overflow-x: hidden;
     width: 100%;
     font-family: 'Red Hat Display', sans-serif;
-    background-color: #F4F4F4;
+    background-color: white;
 }
 
 /* Navigation Bar */
@@ -38,6 +38,18 @@ body, html {
 
 #top-bar-links .home-link {
     color: #DDB62E !important; /* Mustard yellow for Home button */
+}
+
+/* Section with Light Grey Background for Full Screen */
+.full-screen-light-grey {
+    background-color: #f0f0f0; /* Light grey background */
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    margin: 0; /* Remove any margin */
+    padding: 0; /* Remove any padding */
+    box-sizing: border-box; /* Ensure padding and border are included in the width and height */
 }
 
 /* "Have a Project?" Button */
@@ -104,7 +116,7 @@ body, html {
 .carousel-button-container {
     position: absolute;
     bottom: 9%; /* Adjusted position */
-    left: 90.3%;
+    left: 88.2%;
     transform: translateX(-0%);
     z-index: 10;
     text-align: center; /* Center button in container */

@@ -88,20 +88,22 @@
     </script>
 }
 
-<!-- Section: Circles and Text Side by Side Using Foundation XY Grid -->
-<div class="grid-container">
-    <div class="grid-x grid-margin-x align-center">
-        <!-- Left Column: Circle Icons Image -->
-        <div class="cell medium-6 small-12 align-center text-center">
-            <img src="@Url.Content(circleIconsImage)" alt="Circle Icons" class="circle-icons">
-        </div>
+<!-- Section with Light Grey Background for Circles and Text -->
+<div class="full-screen-light-grey">
+    <div class="grid-container full-height">
+        <div class="grid-x grid-margin-x align-center full-height">
+            <!-- Left Column: Circle Icons Image -->
+            <div class="cell medium-6 small-12 align-center text-center">
+                <img src="@Url.Content(circleIconsImage)" alt="Circle Icons" class="circle-icons">
+            </div>
 
-        <!-- Right Column: Text Content -->
-        <div class="cell medium-6 small-12 align-center">
-            <div class="text-section">
-                <h2>@section1Title</h2>
-                <p>@section1Description</p>
-                <a href="@section1ButtonLink" class="mustard-button">@section1ButtonText</a>
+            <!-- Right Column: Text Content -->
+            <div class="cell medium-6 small-12 align-center">
+                <div class="text-section">
+                    <h2>@section1Title</h2>
+                    <p>@section1Description</p>
+                    <a href="@section1ButtonLink" class="mustard-button">@section1ButtonText</a>
+                </div>
             </div>
         </div>
     </div>

@@ -114,6 +114,7 @@ namespace IotaWebApp.Controllers
         }
 
         // POST: Admin/Edit/5
+        // POST: Admin/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, WebsiteContent content, IFormFile file)
@@ -123,9 +124,18 @@ namespace IotaWebApp.Controllers
                 return NotFound();
             }
 
+            // Fetch the existing content from the database to compare and update
+            var existingContent = await _context.WebsiteContents.AsNoTracking().FirstOrDefaultAsync(c => c.Id == content.Id);
+            if (existingContent == null)
+            {
+                _logger.LogWarning($"Edit action: Content with ID {id} not found.");
+                return NotFound();
+            }
+
             // Clear any existing errors for 'file' to avoid false validation failures
             ModelState.Remove("file");
 
+            // Handle Image content type
             if (content.ContentType == "Image")
             {
                 if (file != null && file.Length > 0)
@@ -136,10 +146,7 @@ namespace IotaWebApp.Controllers
                 else
                 {
                     // If no new file is uploaded, keep the existing ContentValue
-                    var existingContentValue = _context.WebsiteContents.AsNoTracking()
-                        .FirstOrDefault(c => c.Id == content.Id)?.ContentValue;
-
-                    if (string.IsNullOrEmpty(existingContentValue))
+                    if (string.IsNullOrEmpty(existingContent.ContentValue))
                     {
                         // If there's no existing ContentValue, require a file
                         ModelState.AddModelError("file", "An image file is required for Image content type.");
@@ -147,27 +154,30 @@ namespace IotaWebApp.Controllers
                     else
                     {
                         // Keep the existing ContentValue
-                        content.ContentValue = existingContentValue;
+                        content.ContentValue = existingContent.ContentValue;
                     }
                 }
             }
+            // Handle Text content type
             else if (content.ContentType == "Text")
             {
                 if (string.IsNullOrWhiteSpace(content.ContentValue))
                 {
                     ModelState.AddModelError("ContentValue", "Content Value is required for Text content type.");
                 }
-                // No need to process the file field when ContentType is "Text"
             }
+            // Handle invalid ContentType
             else
             {
                 ModelState.AddModelError("ContentType", "Please select a valid Content Type.");
             }
 
+            // Check model state validity
             if (ModelState.IsValid)
             {
                 try
                 {
+                    // Update the content in the database
                     _context.Update(content);
                     await _context.SaveChangesAsync();
                     _logger.LogInformation("Content updated successfully.");
@@ -187,12 +197,15 @@ namespace IotaWebApp.Controllers
             }
             else
             {
+                // Log model state errors
                 var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
                 _logger.LogWarning("ModelState is invalid: " + string.Join("; ", errors));
             }
 
+            // If we reach this point, something went wrong, so return the view with the existing content
             return View(content);
         }
+
 
         private bool WebsiteContentExists(int id)
         {
