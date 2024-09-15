@@ -10,7 +10,7 @@ namespace IotaWebApp.Models
         [StringLength(50)]
         public string ContentKey { get; set; }
 
-        [StringLength(5000)] // Adjust the length as needed
+        [StringLength(5000)]
         public string ContentValue { get; set; }
 
         [Required(ErrorMessage = "Content Type is required.")]

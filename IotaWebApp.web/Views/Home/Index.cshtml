@@ -3,55 +3,44 @@
 @{
     ViewData["Title"] = "Home";
 
-    // Helper function to get content by key
     Func<string, string> GetContentValue = key => Model.FirstOrDefault(c => c.ContentKey == key)?.ContentValue ?? string.Empty;
 
-    // Hero Section Content
     var heroImage = GetContentValue("HeroImage") ?? "/assets/placeholder.png";
     var heroTitle = GetContentValue("HeroTitle") ?? "Default Hero Title";
     var heroButtonText = GetContentValue("HeroButtonText") ?? "Learn More";
     var heroButtonLink = GetContentValue("HeroButtonLink") ?? "#";
 
-    // Section Content
     var section1Title = GetContentValue("Section1Title") ?? "Section Title";
     var section1Description = GetContentValue("Section1Description") ?? "Section description...";
     var section1ButtonText = GetContentValue("Section1ButtonText") ?? "Click Here";
     var section1ButtonLink = GetContentValue("Section1ButtonLink") ?? "#";
 
-    // Circle Icons Image
     var circleIconsImage = GetContentValue("CircleIconsImage") ?? "/assets/circle-icons.png";
 
-    // Placeholder Images for Carousel
     var placeholderImage1 = GetContentValue("CarouselPlaceholder1") ?? "/assets/placeholder.png";
     var placeholderImage2 = GetContentValue("CarouselPlaceholder2") ?? "/assets/placeholder.png";
     var placeholderImage3 = GetContentValue("CarouselPlaceholder3") ?? "/assets/placeholder.png";
 
-    // Section Content for "Explore our latest work..."
     var sectionTitle = "Explore our latest work...";
 
-    // Content for Left Column
     var leftImage = GetContentValue("LeftColumnImage") ?? "/assets/placeholder.png";
     var leftTitle = GetContentValue("LeftColumnTitle") ?? "Case Study Name Here";
     var leftBody = GetContentValue("LeftColumnBody") ?? "Lorem ipsum dolor...";
     var leftLink = GetContentValue("LeftColumnLink") ?? "#";
 
-    // Content for Middle Column
     var middleImage = GetContentValue("MiddleColumnImage") ?? "/assets/placeholder.png";
     var middleTitle = GetContentValue("MiddleColumnTitle") ?? "Case Study Name Here";
     var middleLink = GetContentValue("MiddleColumnLink") ?? "#";
 
-    // Content for Right Column
     var rightImage = GetContentValue("RightColumnImage") ?? "/assets/placeholder.png";
     var rightTitle = GetContentValue("RightColumnTitle") ?? "Case Study Name Here";
     var rightLink = GetContentValue("RightColumnLink") ?? "#";
 
-    // Icon Content Variables
     var iconOffice = GetContentValue("IconOffice") ?? "/assets/Group 456.png";
     var iconEducation = GetContentValue("IconEducation") ?? "/assets/Group 457.png";
     var iconHealthcare = GetContentValue("IconHealthcare") ?? "/assets/Group 458.png";
     var iconHospitality = GetContentValue("IconHospitality") ?? "/assets/Group 459.png";
 
-    // Full-Width Image Section Content
     var discoverTitle = GetContentValue("DiscoverTitle") ?? "Discover more about iOTA";
     var discoverSubtitle = GetContentValue("DiscoverSubtitle") ?? "Find out who we are, why we do it and why we love what we do.";
     var buttonTealText = GetContentValue("ButtonTealText") ?? "WATCH THE VIDEO";
@@ -59,7 +48,6 @@
     var backgroundImage = GetContentValue("BackgroundImage") ?? "/assets/image1.png";
 }
 
-<!-- Full-Width Hero Section Using Foundation XY Grid -->
 <div class="grid-container fluid full">
     <div class="grid-x">
         <div class="cell large-12 medium-12 small-12">
@@ -97,7 +85,6 @@
     </div>
 </div>
 
-<!-- Initialize Carousel -->
 @section Scripts {
     <script>
         $(document).ready(function () {
@@ -114,7 +101,6 @@
     </script>
 }
 
-<!-- Section with Light Grey Background for Circles and Text -->
 <div class="full-screen-light-grey">
     <div class="grid-container full-height">
         <div class="grid-x grid-margin-x align-center full-height">
@@ -133,13 +119,10 @@
     </div>
 </div>
 
-<!-- Section Title -->
 <h2 class="section-title text-center">@sectionTitle</h2>
 
-<!-- Three-Column Layout Using Foundation XY Grid -->
 <div class="grid-container">
     <div class="grid-x grid-margin-x align-center">
-        <!-- Left Column -->
         <div class="cell medium-4 small-12">
             <div class="content-box">
                 <div class="image-overlay-container float-right">
@@ -152,8 +135,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Middle Column -->
         <div class="cell medium-4 small-12 text-center">
             <div class="content-box">
                 <div class="image-overlay-container">
@@ -165,8 +146,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Right Column -->
         <div class="cell medium-4 small-12">
             <div class="content-box">
                 <div class="image-overlay-container float-left">
@@ -181,15 +160,10 @@
     </div>
 </div>
 
-<!-- Dark Blue Band with Icons -->
 <div class="dark-blue-band">
     <div class="grid-container">
-        <!-- Grid Layout Using Foundation XY Grid -->
         <div class="grid-x align-center">
-            <!-- Empty Cells to Reserve Space for Left Quarter -->
-            <div class="cell medium-2 small-0"></div> <!-- First empty quarter -->
-
-            <!-- Icon Cells with Even Larger Margin Utility Classes -->
+            <div class="cell medium-2 small-0"></div> 
             <div class="cell medium-2 small-6 text-center margin-left-3 margin-right-3">
                 <img src="@Url.Content(iconOffice)" alt="Office" class="icon-image" />
             </div>
@@ -205,29 +179,19 @@
             <div class="cell medium-2 small-6 text-center margin-left-3 margin-right-3">
                 <img src="@Url.Content(iconHospitality)" alt="Hospitality" class="icon-image" />
             </div>
-
-            <!-- Empty Cells to Reserve Space for Right Quarter -->
-            <div class="cell medium-2 small-0"></div> <!-- Last empty quarter -->
+            <div class="cell medium-2 small-0"></div> 
         </div>
     </div>
 </div>
 
-<!-- Full-Width Image Section -->
 <div class="full-width-image-section">
-    <!-- Background Image using Razor Syntax -->
     <img src="@Url.Content(backgroundImage)" alt="Background Image" class="full-width-background-image" />
 
-    <!-- Overlay Content -->
     <div class="grid-container full">
         <div class="grid-x align-center align-middle full-height">
             <div class="cell large-8 medium-10 small-12 text-center">
-                <!-- Title -->
                 <h2 class="discover-title">@discoverTitle</h2>
-
-                <!-- Subtitle -->
                 <p class="discover-subtitle">@discoverSubtitle</p>
-
-                <!-- Buttons -->
                 <div class="button-group">
                     <a href="#" class="button teal-button">@buttonTealText</a>
                     <a href="#" class="button mustard-button">@buttonMustardText</a>
@@ -236,6 +200,3 @@
         </div>
     </div>
 </div>
-
-
-

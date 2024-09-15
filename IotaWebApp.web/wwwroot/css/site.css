@@ -9,8 +9,8 @@ body, html {
 
 #header-container {
     display: flex;
-    align-items: flex-start; /* Align items to the top */
-    justify-content: space-between; /* Space out items */
+    align-items: flex-start;
+    justify-content: space-between; 
     padding: 10px 20px;
 }
 
@@ -27,14 +27,14 @@ body, html {
 
 #nav-container {
     display: flex;
-    flex-direction: column; /* Stack the project button above the nav */
-    align-items: flex-end; /* Align items to the right */
-    margin-left: auto; /* Push navigation container to the right */
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: auto;
 }
 
 .project-button-container {
-    margin-bottom: 10px; /* Add space below the button */
-    text-align: right; /* Align button to the right */
+    margin-bottom: 10px;
+    text-align: right;
 }
 
 .project-btn {
@@ -48,28 +48,28 @@ body, html {
 }
 
 .nav-actions {
-    display: flex; /* Align navigation links and search icon in a row */
-    align-items: center; /* Vertically center elements */
-    justify-content: flex-end; /* Push nav items to the right */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 #top-bar-links {
-    display: flex; /* Align navigation links in a row */
-    align-items: center; /* Center links vertically */
+    display: flex;
+    align-items: center;
     margin: 0;
     padding: 0;
-    list-style: none; /* Remove default list styling */
-    margin-right: 10px; /* Spacing between links and search icon */
+    list-style: none;
+    margin-right: 10px;
 }
 
     #top-bar-links li {
-        margin: 0 50px; /* Spacing between navigation links */
+        margin: 0 50px;
     }
 
     #top-bar-links a {
         color: #000 !important;
         font-weight: 500;
-        text-decoration: none; /* Remove underline */
+        text-decoration: none;
     }
 
     #top-bar-links .home-link {
@@ -78,8 +78,8 @@ body, html {
 
 .search-icon {
     display: inline-block;
-    vertical-align: middle; /* Align with other elements */
-    margin-left: 10px; /* Add space between nav links and search icon */
+    vertical-align: middle;
+    margin-left: 10px;
 }
 
 .header-search-icon {
@@ -90,23 +90,23 @@ body, html {
 
 @media screen and (max-width: 768px) {
     #header-container {
-        flex-direction: column; /* Stack items */
-        align-items: center; /* Center items */
+        flex-direction: column;
+        align-items: center;
         padding: 20px 0;
     }
 
     #nav-container {
-        align-items: center; /* Center items for smaller screens */
+        align-items: center;
     }
 
     .nav-actions {
-        flex-direction: column; /* Stack navigation links and buttons */
+        flex-direction: column;
         align-items: center;
-        margin-top: 10px; /* Add margin for spacing */
+        margin-top: 10px; 
     }
 
     .project-btn {
-        margin-bottom: 10px; /* Add margin below the project button */
+        margin-bottom: 10px;
     }
 }
 

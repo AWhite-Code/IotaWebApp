@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using IotaWebApp.Models; // Add this directive
+using IotaWebApp.Models;
 
 public class RequiredIfContentTypeIsAttribute : ValidationAttribute
 {

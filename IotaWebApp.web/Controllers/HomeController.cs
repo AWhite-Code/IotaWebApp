@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using System.Linq;
-using IotaWebApp.Data; // Replace with your actual namespace
+using IotaWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace IotaWebApp.Controllers

@@ -2,14 +2,11 @@
 @inject WebsiteCMSDbContext DbContext
 
 @{
-    // Helper function to get content by key dynamically from the database
     Func<string, string> GetContentValue = key => DbContext.WebsiteContents.FirstOrDefault(c => c.ContentKey == key)?.ContentValue ?? string.Empty;
 
-    // Header Content
     string headerLogoImage = ViewData["HeaderLogoImage"] as string ?? GetContentValue("HeaderLogoImage") ?? "~/Assets/logo.png";
     string headerProjectButtonText = ViewData["HeaderProjectButtonText"] as string ?? GetContentValue("HeaderProjectButtonText") ?? "Have a Project?";
 
-    // Navigation Links
     string navLink1 = ViewData["NavLink1"] as string ?? GetContentValue("NavLink1") ?? "Home";
     string navLink1Url = ViewData["NavLink1Url"] as string ?? GetContentValue("NavLink1Url") ?? "#";
 
@@ -30,9 +27,7 @@
 
     string navLink7 = ViewData["NavLink7"] as string ?? GetContentValue("NavLink7") ?? "Get in Touch";
     string navLink7Url = ViewData["NavLink7Url"] as string ?? GetContentValue("NavLink7Url") ?? "#";
-
-    // Footer Content
-    string footerLogoImage = headerLogoImage; // Reuse the header logo for the footer
+    string footerLogoImage = headerLogoImage;
     string footerCopyrightText = GetContentValue("FooterCopyrightText") ?? "© iOTA interiors Limited iOTA Office Furniture";
     string footerTermsText = GetContentValue("FooterTermsText") ?? "Terms & Conditions";
     string footerSiteCreditText = GetContentValue("FooterSiteCreditText") ?? "Site by Verto";
@@ -54,8 +49,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - IOTA</title>
-
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="~/lib/foundation/css/foundation.min.css" />
     <link rel="stylesheet" href="~/lib/slick-carousel/slick.css" />
     <link rel="stylesheet" href="~/lib/slick-carousel/slick-theme.css" />
@@ -99,20 +92,14 @@
     <div class="grid-container fluid">
         @RenderBody()
     </div>
-
-    <!-- Footer Section -->
     <footer>
         <div class="grid-container fluid brown-footer">
-            <!-- Logo Row (Separate from the Text Content) -->
             <div class="grid-x grid-margin-x">
                 <div class="cell large-3 medium-6 small-12">
                     <img src="@Url.Content(footerLogoImage)" alt="IOTA Logo" class="footer-logo" />
                 </div>
             </div>
-
-            <!-- Text Content Rows (4 Columns) -->
             <div class="grid-x grid-margin-x">
-                <!-- Column 1: Copyright and Links -->
                 <div class="cell large-3 medium-6 small-12">
                     <p class="footer-copyright">
                         <i class="fa fa-copyright"></i> @footerCopyrightText
@@ -120,21 +107,15 @@
                     <p><a href="#">@footerTermsText</a></p>
                     <p>@footerSiteCreditText</p>
                 </div>
-
-                <!-- Column 2: Head Office Information -->
                 <div class="cell large-3 medium-6 small-12">
                     <p class="footer-title">@footerHeadOfficeTitle</p>
                     <p>@footerHeadOfficeLine1</p>
                     <p>@footerHeadOfficeLine2</p>
                 </div>
-
-                <!-- Column 3: Social Links -->
                 <div class="cell large-3 medium-6 small-12">
                     <p><i class="fa fa-twitter"></i> @footerSocialConnectText</p>
                     <p><i class="fa fa-facebook"></i> @footerSocialLikeText</p>
                 </div>
-
-                <!-- Column 4: Contact Information -->
                 <div class="cell large-3 medium-6 small-12">
                     <p>@footerContactPhone</p>
                     <p>@footerContactEmail</p>
@@ -142,8 +123,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/slick-carousel/slick.min.js"></script>
     <script src="~/lib/foundation/js/foundation.min.js"></script>
