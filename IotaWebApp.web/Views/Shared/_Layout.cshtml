@@ -32,7 +32,20 @@
     string navLink7Url = ViewData["NavLink7Url"] as string ?? GetContentValue("NavLink7Url") ?? "#";
 
     // Footer Content
-    string footerContent = GetContentValue("FooterContent") ?? "Default footer content here.";
+    string footerLogoImage = headerLogoImage; // Reuse the header logo for the footer
+    string footerCopyrightText = GetContentValue("FooterCopyrightText") ?? "© iOTA interiors Limited iOTA Office Furniture";
+    string footerTermsText = GetContentValue("FooterTermsText") ?? "Terms & Conditions";
+    string footerSiteCreditText = GetContentValue("FooterSiteCreditText") ?? "Site by Verto";
+
+    string footerHeadOfficeTitle = GetContentValue("FooterHeadOfficeTitle") ?? "Head Office:";
+    string footerHeadOfficeLine1 = GetContentValue("FooterHeadOfficeLine1") ?? "The Crabtree, Quinton Green Park, Quinton";
+    string footerHeadOfficeLine2 = GetContentValue("FooterHeadOfficeLine2") ?? "Northampton, NN7 2EG";
+
+    string footerSocialConnectText = GetContentValue("FooterSocialConnectText") ?? "Connect with Us";
+    string footerSocialLikeText = GetContentValue("FooterSocialLikeText") ?? "Like Us";
+
+    string footerContactPhone = GetContentValue("FooterContactPhone") ?? "+44 (0) 01604289630";
+    string footerContactEmail = GetContentValue("FooterContactEmail") ?? "Hello@iotaofficefurniture.co.uk";
 }
 
 <!DOCTYPE html>
@@ -48,47 +61,85 @@
     <link rel="stylesheet" href="~/lib/slick-carousel/slick-theme.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Red+Hat+Display:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 
     @RenderSection("Head", required: false)
 </head>
 <body>
-    <!-- Header with Logo, Navigation, and Button -->
     <header>
         <div class="grid-container fluid" id="header-container">
-            <div class="grid-x align-justify align-middle">
-                <!-- Logo -->
-                <div class="cell auto" id="logo-container">
-                    <img src="@Url.Content(headerLogoImage)" alt="IOTA Logo" class="logo" style="max-height: 50px;" />
+            <div class="grid-x align-middle">
+                <div class="cell shrink" id="logo-container">
+                    <img src="@Url.Content(headerLogoImage)" alt="IOTA Logo" class="logo" />
                 </div>
-                <!-- Have a Project Button -->
-                <div class="cell shrink text-right" id="nav-container">
-                    <a href="#" class="button project-btn">@headerProjectButtonText</a>
-                    <!-- Navigation Links -->
-                    <nav>
-                        <ul class="menu align-right" id="top-bar-links">
+                <div class="cell auto" id="nav-container">
+                    <div class="project-button-container text-right">
+                        <a href="#" class="button project-btn">@headerProjectButtonText</a>
+                    </div>
+                    <div class="nav-actions text-right">
+                        <ul class="menu" id="top-bar-links">
                             <li><a href="@navLink1Url" class="home-link">@navLink1</a></li>
                             <li><a href="@navLink2Url">@navLink2</a></li>
                             <li><a href="@navLink3Url">@navLink3</a></li>
                             <li><a href="@navLink4Url">@navLink4</a></li>
                             <li><a href="@navLink5Url">@navLink5</a></li>
                             <li><a href="@navLink6Url">@navLink6</a></li>
-                            <li><a href="@navLink7Url">@navLink7</a></li>
+                            <li><a href="@navLink7Url">Get in Touch</a></li>
                         </ul>
-                    </nav>
+                        <a href="#" class="search-icon">
+                            <img src="@Url.Content("~/assets/search.png")" alt="Search" class="header-search-icon" />
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
-
-    <!-- Main Content -->
     <div class="grid-container fluid">
         @RenderBody()
     </div>
 
-    <!-- Footer (Add as Needed) -->
+    <!-- Footer Section -->
     <footer>
-        <div class="grid-container">
-            @footerContent <!-- Dynamic footer content -->
+        <div class="grid-container fluid brown-footer">
+            <!-- Logo Row (Separate from the Text Content) -->
+            <div class="grid-x grid-margin-x">
+                <div class="cell large-3 medium-6 small-12">
+                    <img src="@Url.Content(footerLogoImage)" alt="IOTA Logo" class="footer-logo" />
+                </div>
+            </div>
+
+            <!-- Text Content Rows (4 Columns) -->
+            <div class="grid-x grid-margin-x">
+                <!-- Column 1: Copyright and Links -->
+                <div class="cell large-3 medium-6 small-12">
+                    <p class="footer-copyright">
+                        <i class="fa fa-copyright"></i> @footerCopyrightText
+                    </p>
+                    <p><a href="#">@footerTermsText</a></p>
+                    <p>@footerSiteCreditText</p>
+                </div>
+
+                <!-- Column 2: Head Office Information -->
+                <div class="cell large-3 medium-6 small-12">
+                    <p class="footer-title">@footerHeadOfficeTitle</p>
+                    <p>@footerHeadOfficeLine1</p>
+                    <p>@footerHeadOfficeLine2</p>
+                </div>
+
+                <!-- Column 3: Social Links -->
+                <div class="cell large-3 medium-6 small-12">
+                    <p><i class="fa fa-twitter"></i> @footerSocialConnectText</p>
+                    <p><i class="fa fa-facebook"></i> @footerSocialLikeText</p>
+                </div>
+
+                <!-- Column 4: Contact Information -->
+                <div class="cell large-3 medium-6 small-12">
+                    <p>@footerContactPhone</p>
+                    <p>@footerContactEmail</p>
+                </div>
+            </div>
         </div>
     </footer>
 

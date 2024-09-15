@@ -1,4 +1,3 @@
-/* General Styles */
 body, html {
     margin: 0;
     padding: 0;
@@ -8,94 +7,162 @@ body, html {
     background-color: white;
 }
 
-/* Navigation Bar */
-#header-container .top-bar {
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    padding: 0 20px;
-    box-sizing: border-box;
+#header-container {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    justify-content: space-between; /* Space out items */
+    padding: 10px 20px;
 }
 
-/* Updated Logo Container */
 #logo-container {
-    margin-left: 2vw;
     display: flex;
     align-items: center;
 }
 
-    /* Adjust IOTA Logo Image */
     #logo-container img {
         max-height: 50px;
         display: block;
         margin: 0;
     }
 
-#top-bar-links a {
-    color: #000 !important; /* Clickies are black by default */
-    font-weight: 500;
-    margin: 0 10px;
-}
-
-#top-bar-links .home-link {
-    color: #DDB62E !important; /* Mustard yellow for Home button */
-}
-
-/* Section with Light Grey Background for Full Screen */
-.full-screen-light-grey {
-    background-color: #f0f0f0; /* Light grey background */
-    height: 100vh; /* Full viewport height */
+#nav-container {
     display: flex;
-    align-items: center; /* Center content vertically */
-    justify-content: center; /* Center content horizontally */
-    margin: 0; /* Remove any margin */
-    padding: 0; /* Remove any padding */
-    box-sizing: border-box; /* Include padding and border in width and height */
+    flex-direction: column; /* Stack the project button above the nav */
+    align-items: flex-end; /* Align items to the right */
+    margin-left: auto; /* Push navigation container to the right */
 }
 
-/* "Have a Project?" Button */
+.project-button-container {
+    margin-bottom: 10px; /* Add space below the button */
+    text-align: right; /* Align button to the right */
+}
+
 .project-btn {
-    background-color: #DDB62E !important; /* Mustard yellow */
+    background-color: #DDB62E;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.nav-actions {
+    display: flex; /* Align navigation links and search icon in a row */
+    align-items: center; /* Vertically center elements */
+    justify-content: flex-end; /* Push nav items to the right */
+}
+
+#top-bar-links {
+    display: flex; /* Align navigation links in a row */
+    align-items: center; /* Center links vertically */
+    margin: 0;
+    padding: 0;
+    list-style: none; /* Remove default list styling */
+    margin-right: 10px; /* Spacing between links and search icon */
+}
+
+    #top-bar-links li {
+        margin: 0 50px; /* Spacing between navigation links */
+    }
+
+    #top-bar-links a {
+        color: #000 !important;
+        font-weight: 500;
+        text-decoration: none; /* Remove underline */
+    }
+
+    #top-bar-links .home-link {
+        color: #DDB62E !important;
+    }
+
+.search-icon {
+    display: inline-block;
+    vertical-align: middle; /* Align with other elements */
+    margin-left: 10px; /* Add space between nav links and search icon */
+}
+
+.header-search-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    #header-container {
+        flex-direction: column; /* Stack items */
+        align-items: center; /* Center items */
+        padding: 20px 0;
+    }
+
+    #nav-container {
+        align-items: center; /* Center items for smaller screens */
+    }
+
+    .nav-actions {
+        flex-direction: column; /* Stack navigation links and buttons */
+        align-items: center;
+        margin-top: 10px; /* Add margin for spacing */
+    }
+
+    .project-btn {
+        margin-bottom: 10px; /* Add margin below the project button */
+    }
+}
+
+
+
+.full-screen-light-grey {
+    background-color: #f0f0f0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.project-btn {
+    background-color: #DDB62E !important;
     color: #fff !important;
     border: none;
-    border-bottom-left-radius: 10px; /* Rounded bottom corners */
+    border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    border-top-left-radius: 0; /* Straight top corners */
+    border-top-left-radius: 0;
     border-top-right-radius: 0;
     padding: 10px 20px;
     text-transform: uppercase;
     margin-bottom: 5px;
 }
 
-/* Full-Width Hero Section and Carousel */
 .full-screen-width {
     position: relative;
-    max-width: 100vw; /* Full width of the viewport */
+    max-width: 100vw;
     width: 100%;
     overflow: hidden;
     box-sizing: border-box;
-    margin: 0; /* Remove auto margin to stretch full width */
-    padding: 0; /* Remove any padding */
+    margin: 0;
+    padding: 0;
 }
 
-/* Carousel styling */
 .carousel {
     width: 100%;
-    margin: 0 auto; /* Center carousel within the grid */
+    margin: 0 auto;
     padding: 0;
     position: relative;
-    overflow: hidden; /* Ensure no overflow */
+    overflow: hidden;
 }
 
 .hero-image {
     width: 100%;
     display: block;
     margin: 0;
-    max-width: 100%; /* Ensure image does not exceed container width */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 0; /* Straight edges for uniformity */
+    max-width: 100%;
+    height: auto;
+    border-radius: 0;
 }
 
-/* Centered Caption Text */
 .carousel-caption {
     position: absolute;
     top: 50%;
@@ -104,78 +171,71 @@ body, html {
     color: #fff;
     text-align: center;
     font-family: 'DM Serif Display', serif;
+    font-weight: 400;
 }
 
     .carousel-caption h1 {
         font-size: 3rem;
         margin-bottom: 1rem;
-        text-align: center; /* Align the heading to the center */
+        text-align: center;
     }
 
-/* Carousel Button Container */
 .carousel-button-container {
     position: absolute;
-    bottom: 9%; /* Adjusted position */
-    left: 88.2%;
+    bottom: 7%;
+    left: 86.5%;
     transform: translateX(-0%);
     z-index: 10;
-    text-align: center; /* Center button in container */
+    text-align: center;
 }
 
-    /* Button Styling */
     .carousel-button-container .button {
-        background-color: #18BEAB; /* Teal background */
+        background-color: #18BEAB;
         color: #fff;
         padding: 1em 2em;
-        border-radius: 20px 0 20px 20px; /* Right angle on top right, rounded on other corners */
+        border-radius: 20px 0 20px 20px;
         border: none;
         text-transform: uppercase;
         font-weight: bold;
-        font-size: 16px; /* Adjusted font size */
+        font-size: 16px;
         box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.2);
         text-align: center;
         cursor: pointer;
     }
 
-        /* Hover effect for the button */
         .carousel-button-container .button:hover {
-            background-color: #16a79d; /* Slightly darker teal */
+            background-color: #16a79d;
         }
 
-/* Responsive Adjustments */
 @media screen and (max-width: 768px) {
     .carousel-caption h1 {
         font-size: 2rem;
     }
 
     .carousel-button-container .button {
-        padding: 0.8em 1.5em; /* Smaller padding for smaller screens */
+        padding: 0.8em 1.5em;
     }
 }
 
-/* Ensure the circles image is centered and responsive */
 .circle-icons {
     max-width: 100%;
     height: auto;
-    margin: 0 auto; /* Centers the image horizontally */
-    display: block; /* Required for margin auto to work */
+    margin: 0 auto;
+    display: block;
 }
 
-/* Styles for the right-hand side text */
 .text-section {
     padding: 20px;
     text-align: left;
     color: #000;
 }
 
-    /* Style for the first line of text */
     .text-section h2 {
         font-size: 55px;
         font-family: 'DM Serif Display', serif;
         margin-bottom: 20px;
     }
 
-    /* Style for the second line of text with indentation */
     .text-section p {
         font-size: 16px;
         font-family: 'Red Hat Display', sans-serif;
@@ -185,7 +245,6 @@ body, html {
         margin-left: 20px;
     }
 
-/* Style for the Mustard Button */
 .mustard-button {
     display: inline-block;
     background-color: #D8A31A;
@@ -194,7 +253,7 @@ body, html {
     font-weight: 500;
     font-size: 16px;
     padding: 12px 30px;
-    border-radius: 50px; /* Fully rounded button */
+    border-radius: 50px;
     text-decoration: none;
     margin-left: 20px;
     margin-top: 20px;
@@ -202,12 +261,10 @@ body, html {
     cursor: pointer;
 }
 
-    /* Hover effect for the button */
     .mustard-button:hover {
         background-color: #b58415;
     }
 
-/* Section Title Styling */
 .section-title {
     margin-top: 40px;
     margin-bottom: 20px;
@@ -216,222 +273,268 @@ body, html {
     color: #333;
 }
 
-/* Content Box Styling for Three-Column Layout */
 .content-box {
     padding: 20px;
     background-color: #fff;
     margin-bottom: 30px;
     border-radius: 10px;
     text-align: center;
-    position: relative; /* Required for absolute positioning inside */
+    position: relative;
 }
 
-/* Image Overlay Container */
 .image-overlay-container {
-    position: relative; /* Parent should be relative for absolute positioning */
-    overflow: hidden; /* Clip content that goes beyond the container */
-    border-radius: 15px; /* Rounded corners for images */
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
 }
 
 .case-study-image {
     width: 100%;
     height: auto;
-    border-radius: 15px; /* Ensure rounded corners for images */
-    display: block; /* Centered and contained */
+    border-radius: 15px;
+    display: block;
 }
 
-/* Overlay Content Styling for Left Column */
 .overlay-content.left {
-    position: absolute; /* Position over the image */
-    top: 74%; /* Start halfway down */
-    left: 48%; /* Center horizontally */
-    transform: translate(-50%, -50%); /* Correct the offset */
-    text-align: left; /* Align text to the left */
-    padding: 10px; /* Add padding for better readability */
-    width: 80%; /* Limit width */
-    color: #fff; /* White text for contrast */
-    z-index: 2; /* Ensure the overlay is above the image */
-    display: flex; /* Use flexbox to stack items */
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align text to the left */
-    justify-content: flex-start; /* Align items to start */
+    position: absolute;
+    top: 74%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    padding: 10px;
+    width: 80%;
+    color: #fff;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
-/* Overlay Content Styling for Middle and Right Columns */
 .overlay-content.bottom {
-    position: absolute; /* Position over the image */
-    bottom: 10px; /* Align content at the bottom with padding */
-    left: 54%; /* Center horizontally */
-    transform: translateX(-50%); /* Correct horizontal offset */
-    text-align: left; /* Align text to the left */
-    width: 90%; /* Limit width */
-    color: #fff; /* White text for contrast */
-    z-index: 2; /* Ensure the overlay is above the image */
-    display: flex; /* Use flexbox to stack items */
-    flex-direction: column; /* Stack items vertically */
-    align-items: flex-start; /* Align text to the left */
-    justify-content: flex-end; /* Align items to the bottom */
-    padding-bottom: 10px; /* Add padding to the bottom */
+    position: absolute;
+    bottom: 10px;
+    left: 54%;
+    transform: translateX(-50%);
+    text-align: left;
+    width: 90%;
+    color: #fff;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding-bottom: 10px;
 }
 
-/* Title Styling for Overlay Content */
 .overlay-content h3 {
-    font-size: 22px; /* Title font size */
-    text-align: left; /* Align text to the left */
-    margin: 5px 0; /* Add margin for spacing */
-    color: #fff; /* Ensure text is visible */
-    font-weight: bold; /* Make titles bold */
+    font-size: 22px;
+    text-align: left;
+    margin: 5px 0;
+    color: #fff;
+    font-weight: bold;
 }
 
-/* Body Text Styling for Overlay Content */
 .overlay-content p {
-    font-size: 13px; /* Body font size */
-    text-align: left; /* Align text to the left */
-    margin: 5px 0; /* Margin for spacing */
-    color: #fff; /* Ensure text is visible */
+    font-size: 13px;
+    text-align: left;
+    margin: 5px 0;
+    color: #fff;
 }
 
-/* "View More" Link Styling Inside Overlay */
 .view-more-link {
     display: inline-block;
-    margin-top: 5px; /* Reduce margin to fit within overlay */
-    color: #fff; /* White color for contrast */
+    margin-top: 5px;
+    color: #fff;
     text-decoration: none;
     font-weight: bold;
-    font-size: 14px; /* Font size for 'View More' links */
-    text-align: left; /* Align text to the left */
+    font-size: 14px;
+    text-align: left;
 }
 
     .view-more-link:hover {
-        color: #18BEAB; /* Teal on hover */
-        text-decoration: underline; /* Underline on hover */
+        color: #18BEAB;
+        text-decoration: underline;
     }
 
-/* Dark Blue Band Styling */
 .dark-blue-band {
-    background-color: #2A4351; /* Dark blue background */
-    border-top-left-radius: 20px; /* Rounded top-left corner */
-    border-top-right-radius: 20px; /* Rounded top-right corner */
-    padding: 40px 20px; /* Vertical and horizontal padding */
+    background-color: #2A4351;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 40px 20px;
     box-sizing: border-box;
-    min-height: 100px; /* Ensures the band has a minimum height */
+    min-height: 100px;
 }
 
-/* Icon Image Styling */
 .icon-image {
-    width: 80px; /* Adjust size as needed */
+    width: 80px;
     height: 80px;
     object-fit: contain;
-    margin: 0 auto; /* Center image within its cell */
-    display: block; /* Ensures images are block-level */
+    margin: 0 auto;
+    display: block;
 }
 
-/* Grid Spacing Adjustments */
 .dark-blue-band .grid-x > .cell:not(:first-child):not(:last-child) {
-    padding-left: 20px; /* Add padding to left of each image cell */
-    padding-right: 20px; /* Add padding to right of each image cell */
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-/* Responsive Adjustments */
 @media screen and (max-width: 768px) {
     .icon-image {
-        width: 60px; /* Smaller icon size for smaller screens */
+        width: 60px;
         height: 60px;
     }
 }
 
-/* CSS Variables */
 :root {
     --rem: 16px;
 }
 
-/* Full-Width Image Section */
 .full-width-image-section {
-    position: relative; /* For absolute positioning of content */
-    width: 100%; /* Full width of the screen */
-    height: 500px; /* Set a height for the section */
-    overflow: hidden; /* Hide overflow to keep content within bounds */
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
 }
 
-/* Full-Width Background Image */
 .full-width-background-image {
-    width: 100%; /* Image spans the full width */
-    height: 100%; /* Image spans the full height */
-    object-fit: cover; /* Ensures the image covers the entire section */
-    display: block; /* Centers the image within its container */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
-/* Overlay Content Styling */
 .full-width-image-section .grid-container {
-    position: absolute; /* Position overlay content over the image */
-    top: 50%; /* Start centering vertically */
-    left: 50%; /* Start centering horizontally */
-    transform: translate(-50%, -50%); /* Center content exactly */
-    z-index: 10; /* Ensure content appears above the image */
-    display: flex; /* Use Flexbox for centering */
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center elements horizontally */
-    justify-content: center; /* Center elements vertically */
-    height: 100%; /* Ensures content spans full height for vertical centering */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
-/* Title Styling */
 .discover-title {
-    font-size: 55px; /* Title font size */
-    color: #fff; /* White text color */
-    margin-bottom: 20px; /* Spacing below title */
-    font-family: 'DM Serif Display', serif; /* Custom font */
+    font-size: 55px;
+    color: #fff;
+    margin-bottom: 20px;
+    font-family: 'DM Serif Display', serif;
 }
 
-/* Subtitle Styling */
 .discover-subtitle {
-    font-size: 16px; /* Subtitle font size */
-    color: #fff; /* White text color */
-    margin-bottom: 40px; /* Spacing below subtitle */
-    font-family: 'Red Hat Display', sans-serif; /* Custom font */
-    max-width: 80%; /* Limit width for readability */
-    text-align: center; /* Center text */
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 40px;
+    font-family: 'Red Hat Display', sans-serif;
+    max-width: 80%;
+    text-align: center;
 }
 
-/* Button Group */
 .button-group {
-    display: flex; /* Display buttons in a row */
-    justify-content: center; /* Center buttons horizontally */
-    gap: 20px; /* Space between buttons */
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
-/* Teal Button Styling */
 .teal-button {
-    background-color: #18BEAB; /* Teal background color */
-    color: #fff; /* White text color */
-    padding: 15px 30px; /* Button padding */
-    border-radius: 50px; /* Fully rounded edges */
-    text-transform: uppercase; /* Uppercase text */
-    text-decoration: none; /* No underline */
-    font-weight: bold; /* Bold font */
-    box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.2); /* Button shadow */
+    background-color: #18BEAB;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.2);
 }
 
-    /* Teal Button Hover Effect */
     .teal-button:hover {
-        background-color: #16a79d; /* Slightly darker teal */
+        background-color: #16a79d;
     }
 
-/* Mustard Button Styling */
 .mustard-button {
-    background-color: #DDB62E; /* Mustard background color */
-    color: #fff; /* White text color */
-    padding: 15px 30px; /* Button padding */
-    border-radius: 50px; /* Fully rounded edges */
-    text-transform: uppercase; /* Uppercase text */
-    text-decoration: none; /* No underline */
-    font-weight: bold; /* Bold font */
-    box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.2); /* Button shadow */
+    background-color: #DDB62E;
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.2);
 }
 
-    /* Mustard Button Hover Effect */
     .mustard-button:hover {
-        background-color: #b58415; /* Slightly darker mustard */
+        background-color: #b58415;
     }
 
+.brown-footer {
+    background-color: #333333;
+    color: #fff;
+    padding: 40px 40px 40px 60px;
+    margin-top: 50px;
+}
 
+.grid-x > .cell {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.footer-logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: 0;
+}
+
+.footer-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.brown-footer p {
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.footer-copyright {
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .brown-footer {
+        text-align: center;
+    }
+
+    .footer-logo {
+        margin: 0 auto 20px auto;
+    }
+
+    .grid-x > .cell {
+        margin-bottom: 20px;
+    }
+
+    .search-icon {
+        margin-left: 10px;
+    }
+
+    .header-search-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.search-icon {
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: middle;
+}
+
+.header-search-icon {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    cursor: pointer;
+}
