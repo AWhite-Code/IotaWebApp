@@ -5,8 +5,6 @@
     // Helper function to get content by key dynamically from the database
     Func<string, string> GetContentValue = key => DbContext.WebsiteContents.FirstOrDefault(c => c.ContentKey == key)?.ContentValue ?? string.Empty;
 
-    // Fetch the content dynamically
-
     // Header Content
     string headerLogoImage = ViewData["HeaderLogoImage"] as string ?? GetContentValue("HeaderLogoImage") ?? "~/Assets/logo.png";
     string headerProjectButtonText = ViewData["HeaderProjectButtonText"] as string ?? GetContentValue("HeaderProjectButtonText") ?? "Have a Project?";

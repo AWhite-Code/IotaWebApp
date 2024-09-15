@@ -31,7 +31,7 @@ body, html {
     }
 
 #top-bar-links a {
-    color: #000 !important; /* NOTE: Clickies are black by default */
+    color: #000 !important; /* Clickies are black by default */
     font-weight: 500;
     margin: 0 10px;
 }
@@ -49,7 +49,7 @@ body, html {
     justify-content: center; /* Center content horizontally */
     margin: 0; /* Remove any margin */
     padding: 0; /* Remove any padding */
-    box-sizing: border-box; /* Ensure padding and border are included in the width and height */
+    box-sizing: border-box; /* Include padding and border in width and height */
 }
 
 /* "Have a Project?" Button */
@@ -131,6 +131,7 @@ body, html {
         border: none;
         text-transform: uppercase;
         font-weight: bold;
+        font-size: 16px; /* Adjusted font size */
         box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.2);
         text-align: center;
         cursor: pointer;
@@ -205,6 +206,7 @@ body, html {
     .mustard-button:hover {
         background-color: #b58415;
     }
+
 /* Section Title Styling */
 .section-title {
     margin-top: 40px;
@@ -304,4 +306,132 @@ body, html {
         color: #18BEAB; /* Teal on hover */
         text-decoration: underline; /* Underline on hover */
     }
+
+/* Dark Blue Band Styling */
+.dark-blue-band {
+    background-color: #2A4351; /* Dark blue background */
+    border-top-left-radius: 20px; /* Rounded top-left corner */
+    border-top-right-radius: 20px; /* Rounded top-right corner */
+    padding: 40px 20px; /* Vertical and horizontal padding */
+    box-sizing: border-box;
+    min-height: 100px; /* Ensures the band has a minimum height */
+}
+
+/* Icon Image Styling */
+.icon-image {
+    width: 80px; /* Adjust size as needed */
+    height: 80px;
+    object-fit: contain;
+    margin: 0 auto; /* Center image within its cell */
+    display: block; /* Ensures images are block-level */
+}
+
+/* Grid Spacing Adjustments */
+.dark-blue-band .grid-x > .cell:not(:first-child):not(:last-child) {
+    padding-left: 20px; /* Add padding to left of each image cell */
+    padding-right: 20px; /* Add padding to right of each image cell */
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .icon-image {
+        width: 60px; /* Smaller icon size for smaller screens */
+        height: 60px;
+    }
+}
+
+/* CSS Variables */
+:root {
+    --rem: 16px;
+}
+
+/* Full-Width Image Section */
+.full-width-image-section {
+    position: relative; /* For absolute positioning of content */
+    width: 100%; /* Full width of the screen */
+    height: 500px; /* Set a height for the section */
+    overflow: hidden; /* Hide overflow to keep content within bounds */
+}
+
+/* Full-Width Background Image */
+.full-width-background-image {
+    width: 100%; /* Image spans the full width */
+    height: 100%; /* Image spans the full height */
+    object-fit: cover; /* Ensures the image covers the entire section */
+    display: block; /* Centers the image within its container */
+}
+
+/* Overlay Content Styling */
+.full-width-image-section .grid-container {
+    position: absolute; /* Position overlay content over the image */
+    top: 50%; /* Start centering vertically */
+    left: 50%; /* Start centering horizontally */
+    transform: translate(-50%, -50%); /* Center content exactly */
+    z-index: 10; /* Ensure content appears above the image */
+    display: flex; /* Use Flexbox for centering */
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center elements horizontally */
+    justify-content: center; /* Center elements vertically */
+    height: 100%; /* Ensures content spans full height for vertical centering */
+}
+
+/* Title Styling */
+.discover-title {
+    font-size: 55px; /* Title font size */
+    color: #fff; /* White text color */
+    margin-bottom: 20px; /* Spacing below title */
+    font-family: 'DM Serif Display', serif; /* Custom font */
+}
+
+/* Subtitle Styling */
+.discover-subtitle {
+    font-size: 16px; /* Subtitle font size */
+    color: #fff; /* White text color */
+    margin-bottom: 40px; /* Spacing below subtitle */
+    font-family: 'Red Hat Display', sans-serif; /* Custom font */
+    max-width: 80%; /* Limit width for readability */
+    text-align: center; /* Center text */
+}
+
+/* Button Group */
+.button-group {
+    display: flex; /* Display buttons in a row */
+    justify-content: center; /* Center buttons horizontally */
+    gap: 20px; /* Space between buttons */
+}
+
+/* Teal Button Styling */
+.teal-button {
+    background-color: #18BEAB; /* Teal background color */
+    color: #fff; /* White text color */
+    padding: 15px 30px; /* Button padding */
+    border-radius: 50px; /* Fully rounded edges */
+    text-transform: uppercase; /* Uppercase text */
+    text-decoration: none; /* No underline */
+    font-weight: bold; /* Bold font */
+    box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.2); /* Button shadow */
+}
+
+    /* Teal Button Hover Effect */
+    .teal-button:hover {
+        background-color: #16a79d; /* Slightly darker teal */
+    }
+
+/* Mustard Button Styling */
+.mustard-button {
+    background-color: #DDB62E; /* Mustard background color */
+    color: #fff; /* White text color */
+    padding: 15px 30px; /* Button padding */
+    border-radius: 50px; /* Fully rounded edges */
+    text-transform: uppercase; /* Uppercase text */
+    text-decoration: none; /* No underline */
+    font-weight: bold; /* Bold font */
+    box-shadow: 0 0.4em 1em rgba(0, 0, 0, 0.2); /* Button shadow */
+}
+
+    /* Mustard Button Hover Effect */
+    .mustard-button:hover {
+        background-color: #b58415; /* Slightly darker mustard */
+    }
+
 
